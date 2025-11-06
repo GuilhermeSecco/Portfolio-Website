@@ -218,12 +218,16 @@ i.menu-mobile {
 }
 
 #footer{
-    padding:10px;
+    padding:15px;
     color: #fff;
     width: 100%;
     font-size: 14px;
     background-color: #021124;
     transition: 0.3s
+}
+
+.static-img {
+    display: none;
 }
 
 @media (min-width: 1025px){
@@ -245,6 +249,85 @@ i.menu-mobile {
     i.menu-mobile{
         display:none;
     }
+
+    .carousel-inner,
+    .carousel-item,
+    .col {
+        overflow: visible !important;
+    }
+
+    .card.projetos {
+        overflow: visible;
+        transition: 0.3s ease;
+        border-radius: 12px;
+    }
+
+    .card.projetos:hover {
+        transform: scale(1.05);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        z-index: 1000;
+    }
+    
+    .project-preview {
+        position: relative;
+        transition: 0.3s ease;
+        overflow: hidden;
+        border-radius: 10px;
+    }
+
+    .project-preview img {
+        width: 100%;
+        transition: 0.4s ease;
+    }
+
+    .project-preview:hover {
+        transform: scale(1.05);
+         z-index: 1000;
+    }
+
+    .static-img, .hover-gif {
+        width: 100%;
+        border-radius: 10px;
+        transition: 0.3s;
+    }
+
+    .static-img {
+        display: flex;
+    }
+
+    .static-img, .hover-gif {
+    width: 100%;
+    border-radius: 10px;
+    transition: opacity 0.3s ease;
+    }
+
+    .hover-gif {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    }
+
+    .project-preview:hover .hover-gif {
+    opacity: 1;
+    }
+
+    .project-preview:hover .static-img {
+    opacity: 0;
+    }
+    
+    .titulo-badges {
+    flex: wrap;
+    align-items: baseline;
+    }
+
+    .badge {
+        font-weight: 500;
+        font-size: 0.85rem;
+        padding: 0.4em 0.6em;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
     .carousel-control-prev{
         margin-left: -4.6rem;
         width: 4vw;
