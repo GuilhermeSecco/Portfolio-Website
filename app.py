@@ -1,11 +1,18 @@
-from flask import Flask, request, redirect, url_for, session
+from flask import Flask
+from views import bp_simulador, index, projetos
 from dotenv import load_dotenv
-import os
+
 load_dotenv()
 
 app = Flask(__name__)
 app.secret_key = 'Shiro'
-from views import *
+
+#Rotas principais
+app.add_url_rule('/', view_func=index)
+app.add_url_rule('/projetos', view_func=projetos)
+
+#Registra o simulador via blueprint
+app.register_blueprint(bp_simulador)
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -56,6 +56,13 @@
                 </li>
 
                 <li class="nav-item">
+                    <a class="nav-link" href="/projetos" onclick = ativarLink(this)>
+                        <i class ="bi bi-collection-fill" aria-hidden="true"></i>
+                         Todos os Projetos
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a class="nav-link" href="#contato" onclick = ativarLink(this)>
                         <i class ="bi bi-envelope" aria-hidden="true"></i>
                          Contato
@@ -303,12 +310,69 @@
 
         <section class="mt-5" id="projetos" data-anime="left">
             <div class="container pb-5 pt-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h1 class="pb-4">Projetos</h1>
+                    <a class="btn btn-primary btn-sm" id="projetos_ver_todos" href="/projetos">Ver todos <i class="bi bi-arrow-up-right-square-fill"></i></a>
+                </div>
 
-                    <h1 class="pb-4">Projetos <a id="projetos_ver_todos" href="/projetos">Ver todos <i class="bi bi-arrow-up-right-square small"></i></a></h1>
-                
                 <div id="carouselProjetos" class="carousel slide carousel-dark" data-bs-ride="carousel">
                 <div class="carousel-inner">
                     <div class="carousel-item active" data-bs-interval='20000'>
+                        <div class="row row-cols-1 row-cols-md-2">
+                            <div class="col">
+                                <div class="card projetos">
+                                    <div class="project-preview mb-md-5">
+                                        <img src="../static/img/Projeto_Simulador_Credito.png" class="card-img-top static-img" alt="Dashboard do Projeto Credito">
+                                        <img src="../static/img/Projeto_Simulador_Credito.png" class="card-img-top hover-gif" alt="gif do Projeto Credito">
+                                    </div>
+                                    <div class="card-body mt-md-2">
+                                        <div class="titulo-badges mt-md-4 mb-2">
+                                            <h5 class="card-title mb-0 mb-md-1 me-md-2 ">Simulador de Crédito</h5>
+                                                <span class="badge rounded-pill text-bg-primary align-self-end">Python</span>
+                                                <span class="badge rounded-pill text-bg-secondary align-self-end ms-1">Machine Learning</span>
+                                        </div>
+                                        <p class="card-text">Modelo de Machine Learning treinado para prever a probabilidade de inadimplência de um pedido de crédito.
+                                            <br>O modelo possui uma demonstração em que se pode colocar os dados</p>
+                                        <div class="d-flex justify-content-center">
+                                            <a href="/projetos/simulador-credito" target="_blank"
+                                                class="btn btn-outline-danger me-2">Acessar Demonstração <i class="bi bi-box-arrow-up-right"></i>
+                                            </a>
+                                            <a href="https://github.com/GuilhermeSecco/Risco-de-Credito-e-Fraude-em-Emprestimos" target="_blank"
+                                                class="btn btn-outline-primary">Ver no GitHub <i class="bi bi-github"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="card projetos">
+                                    <div class="project-preview">
+                                        <img src="../static/img/Projeto_LinkedIN.png" class="card-img-top static-img" alt="Dashboard do Projeto LinkedIN">
+                                        <img src="../static/img/Projeto_LinkedIN.gif" class="card-img-top hover-gif" alt="gif do Projeto LinkedIN">
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="titulo-badges mt-1 mb-md-2">
+                                            <h5 class="card-title me-2 mb-0 mb-md-1">JobScraper</h5>
+                                            <span class="badge rounded-pill text-bg-primary align-self-end">Python</span>
+                                            <span class="badge rounded-pill text-bg-danger align-self-end ms-1">Selenium</span>
+                                            <span class="badge rounded-pill text-bg-success align-self-end ms-1">Excel</span>
+                                            <span class="badge rounded-pill text-bg-warning align-self-end ms-1">Power BI</span>
+                                        </div>
+                                        <p class="card-text">Automação com Selenium para coleta de vagas no LinkedIn e criação de dashboard analítico no Power BI.</p>
+                                        <div class="d-flex justify-content-center">
+                                            <a href="https://app.powerbi.com/groups/me/reports/d1a9551d-ae39-4437-a562-51e7d519023d/836231044304e1a563f5?ctid=ba201131-9621-49ca-b50d-57d968b4ac35&experience=power-bi" target="_blank"
+                                                class="btn btn-outline-warning me-2">Ver no Power BI <i class="bi bi-box-arrow-up-right"></i>
+                                            </a>
+                                            <a href="https://github.com/GuilhermeSecco/JobScraper-BI-Dashboard" target="_blank"
+                                                class="btn btn-outline-primary">Ver no Github <i class="bi bi-github"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item" data-bs-interval='20000'>
                         <div class="row row-cols-1 row-cols-md-2 g-4">
                             <div class="col">
                                 <div class="card projetos">
@@ -326,11 +390,11 @@
                                         </div>
                                         <p class="card-text">Modelo de machine learning treinado para prever a probabilidade de um pedido de crédito ser uma fraude.</p>
                                         <div class="d-flex justify-content-center">
-                                            <a href="https://github.com/GuilhermeSecco/Risco-de-Credito-e-Fraude-em-Emprestimos" target="_blank"
-                                                class="btn btn-outline-primary me-2"><i class="bi bi-github"></i>
-                                            </a>
                                             <a href="https://app.powerbi.com/groups/me/reports/6513b484-a3eb-44a6-aaa1-42ba68dc71f5/aee932d08b9bc93b5870?ctid=ba201131-9621-49ca-b50d-57d968b4ac35&experience=power-bi&bookmarkGuid=b05b7c5b-be2a-4897-8862-7938efef6bd1" target="_blank"
-                                                class="btn btn-outline-primary"><i class="bi bi-box-arrow-up-right"></i>
+                                                class="btn btn-outline-warning me-2">Ver no Power BI<i class="bi bi-box-arrow-up-right"></i>
+                                            </a>
+                                            <a href="https://github.com/GuilhermeSecco/Risco-de-Credito-e-Fraude-em-Emprestimos" target="_blank"
+                                                class="btn btn-outline-primary">Ver no GitHub<i class="bi bi-github"></i>
                                             </a>
                                         </div>
                                     </div>
@@ -350,11 +414,11 @@
                                         </div>
                                         <p class="card-text">O projeto utiliza SQL para responder perguntas de negócio e cria um relatório utilizando dashboards em Power BI.</p>
                                         <div class="d-flex justify-content-center">
-                                            <a href="https://github.com/GuilhermeSecco/Analise-Dados-Uber" target="_blank"
-                                                class="btn btn-outline-primary me-2"><i class="bi bi-github"></i>
-                                            </a>
                                             <a href="https://app.powerbi.com/groups/me/reports/a55cdd2b-c51e-41bc-921d-e450d2b390ab?ctid=ba201131-9621-49ca-b50d-57d968b4ac35&bookmarkGuid=aef301b6-0c2a-40b9-a141-09449dccb056" target="_blank"
-                                                class="btn btn-outline-primary"><i class="bi bi-box-arrow-up-right"></i>
+                                                class="btn btn-outline-warning me-2">Ver no Power BI<i class="bi bi-box-arrow-up-right"></i>
+                                            </a>
+                                            <a href="https://github.com/GuilhermeSecco/Analise-Dados-Uber" target="_blank"
+                                                class="btn btn-outline-primary me-2">Ver no GitHub<i class="bi bi-github"></i>
                                             </a>
                                         </div>
                                     </div>
@@ -378,33 +442,7 @@
                                         <p class="card-text">Limpeza, Tratamento e Modelagem de Dados, Criação e Acompanhamento de Indicadores e Dashboards com Excel.</p>
                                         <div class="d-flex justify-content-center">
                                             <a href="https://github.com/GuilhermeSecco/Analise-Receitas-e-Despesas-Excel" target="_blank"
-                                                class="btn btn-outline-primary"><i class="bi bi-github"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="card projetos">
-                                    <div class="project-preview">
-                                        <img src="../static/img/Projeto_LinkedIN.png" class="card-img-top static-img" alt="Dashboard do Projeto LinkedIN">
-                                        <img src="../static/img/Projeto_LinkedIN.gif" class="card-img-top hover-gif" alt="gif do Projeto LinkedIN">
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="titulo-badges mt-1 mb-md-2">
-                                            <h5 class="card-title me-2 mb-0 mb-md-1">JobScraper</h5>
-                                            <span class="badge rounded-pill text-bg-primary align-self-end">Python</span>
-                                            <span class="badge rounded-pill text-bg-danger align-self-end ms-1">Selenium</span>
-                                            <span class="badge rounded-pill text-bg-success align-self-end ms-1">Excel</span>
-                                            <span class="badge rounded-pill text-bg-warning align-self-end ms-1">Power BI</span>
-                                        </div>
-                                        <p class="card-text">Automação com Selenium para coleta de vagas no LinkedIn e criação de dashboard analítico no Power BI.</p>
-                                        <div class="d-flex justify-content-center">
-                                            <a href="https://github.com/GuilhermeSecco/JobScraper-BI-Dashboard" target="_blank"
-                                                class="btn btn-outline-primary me-2"><i class="bi bi-github"></i>
-                                            </a>
-                                            <a href="https://app.powerbi.com/groups/me/reports/d1a9551d-ae39-4437-a562-51e7d519023d/836231044304e1a563f5?ctid=ba201131-9621-49ca-b50d-57d968b4ac35&experience=power-bi" target="_blank"
-                                                class="btn btn-outline-primary"><i class="bi bi-box-arrow-up-right"></i>
+                                                class="btn btn-outline-primary">Ver no GitHub<i class="bi bi-github"></i>
                                             </a>
                                         </div>
                                     </div>

@@ -235,6 +235,10 @@ i.menu-mobile {
     display: none;
 }
 
+#projetos_ver_todos:hover {
+  box-shadow: 0 0 12px rgba(0, 123, 255, 0.6);
+}
+
 @media (min-width: 1025px){
     #main{
         margin-left: 300px;

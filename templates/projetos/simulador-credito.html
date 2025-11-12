@@ -1,0 +1,380 @@
+{% extends "base.html" %}
+{% block title %}Simulador de Crédito{% endblock %}
+
+{% block content %}
+<section id="inicio" class="p-5 pb-md-5 text-white">
+    <div class="col-md-12">
+        <h2 class="mb-4 text-center">Simulador de Crédito</h2>
+        <p class="text-center mb-5">
+            Preencha os campos abaixo para simular a aprovação de crédito.
+        </p>
+
+        <div class="row justify-content-center">
+            <!-- Formulário -->
+            <form method="POST" class="border rounded p-4 bg-dark col-md-4 me-md-2 shadow">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label>Idade</label>
+                        <input type="number" step="1" name="person_age" class="form-control"
+                               value="{{ dados.person_age if dados else '26' }}" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label>Score de Crédito (0–1000)</label>
+                        <input type="number" name="credit_score" min="0" max="1000" step="1" class="form-control"
+                               value="{{ dados.credit_score if dados else '1000' }}" required>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label>Renda Mensal</label>
+                        <input type="number" step="100" name="person_income" class="form-control"
+                               value="{{ (dados.person_income / 13) if dados else '3000' }}" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label>Valor do Empréstimo</label>
+                        <input type="number" step="1000" name="loan_amnt" class="form-control"
+                               value="{{ dados.loan_amnt if dados else '20000' }}" required>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label>Finalidade do Empréstimo</label>
+                    <select name="loan_intent" class="form-select" required>
+                        <option value="EDUCATION" {% if dados and dados.loan_intent == 'EDUCATION' %}selected{% endif %}>Educação</option>
+                        <option value="MEDICAL" {% if dados and dados.loan_intent == 'MEDICAL' %}selected{% endif %}>Saúde</option>
+                        <option value="PERSONAL" {% if dados and dados.loan_intent == 'PERSONAL' %}selected{% endif %}>Pessoal</option>
+                        <option value="DEBTCONSOLIDATION" {% if dados and dados.loan_intent == 'DEBTCONSOLIDATION' %}selected{% endif %}>Consolidação de Dívidas</option>
+                        <option value="HOMEIMPROVEMENT" {% if dados and dados.loan_intent == 'HOMEIMPROVEMENT' %}selected{% endif %}>Reforma Residencial</option>
+                        <option value="VENTURE" {% if dados and dados.loan_intent == 'VENTURE' %}selected{% endif %}>Empreendimento</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label>Tipo de Residência</label>
+                    <select name="person_home_ownership" class="form-select" required>
+                        <option value="OWN" {% if dados and dados.person_home_ownership == 'OWN' %}selected{% endif %}>Própria</option>
+                        <option value="RENT" {% if dados and dados.person_home_ownership == 'RENT' %}selected{% endif %}>Alugada</option>
+                        <option value="MORTGAGE" {% if dados and dados.person_home_ownership == 'MORTGAGE' %}selected{% endif %}>Financiada</option>
+                        <option value="OTHER" {% if dados and dados.person_home_ownership == 'OTHER' %}selected{% endif %}>Outros</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label>Possui histórico de inadimplência?</label>
+                    <select name="cb_person_default_on_file" class="form-select" required>
+                        <option value="N" {% if dados and dados.cb_person_default_on_file == 'N' %}selected{% endif %}>Não</option>
+                        <option value="Y" {% if dados and dados.cb_person_default_on_file == 'Y' %}selected{% endif %}>Sim</option>
+                    </select>
+                </div>
+
+                <div class="text-center mt-4">
+                    <button type="submit" class="btn btn-primary btn-lg">Simular Crédito</button>
+                </div>
+            </form>
+            {% if resultado %}
+                <div class="col-md-3 bg-dark border rounded p-4 mt-5 mt-md-0 shadow text-center animate__animated animate__fadeIn
+                    {% if not resultado.aprova %}
+                        border-danger-custom
+                    {% elif resultado.risco_inadimplencia > 0.15 %}
+                        border-warning-custom
+                    {% else %}
+                        border-success-custom
+                    {% endif %}
+                ">
+                    <!-- Título com cor dinâmica -->
+                    <h4 class="fw-bold mb-4 titulo-resultado
+                        {% if not resultado.aprova %}
+                            text-danger-custom
+                        {% elif resultado.risco_inadimplencia > 0.15 %}
+                            text-warning-custom
+                        {% else %}
+                            text-success-custom
+                        {% endif %}
+                    ">
+                        {% if not resultado.aprova %}
+                            ❌ Crédito Negado
+                        {% elif resultado.risco_inadimplencia > 0.15 %}
+                            ⚠️ Crédito Aprovado com Risco Elevado
+                        {% else %}
+                            ✅ Crédito Aprovado
+                        {% endif %}
+                    </h4>
+
+                    <hr class="my-3" style="border-color: rgba(255,255,255,0.2);">
+
+                    <!-- Texto interno branco -->
+                    <div class="text-start px-2 text-light">
+                        <p><strong>📉 Risco de inadimplência:</strong>
+                            <span class="float-end">{{ (resultado.risco_inadimplencia * 100)|round(2) }}%</span>
+                        </p>
+                        <p><strong>💰 Renda anual estimada:</strong>
+                            <span class="float-end">R$ {{ "{:,.2f}".format(resultado.renda_anual) }}</span>
+                        </p>
+                        <p><strong>📊 Score informado:</strong>
+                            <span class="float-end">{{ resultado.score }} (Grau: {{ resultado.grade }})</span>
+                        </p>
+                        <p><strong>🏦 Taxa de juros aplicada:</strong>
+                            <span class="float-end">{{ resultado.taxa_aplicada }}%</span>
+                        </p>
+                    </div>
+                </div>
+
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+                {% endif %}
+
+
+
+            {% if explicacao %}
+                <div class="col-md-3 bg-dark border rounded p-4 shadow ms-md-2 mt-5 mt-md-0">
+                    <h4 class="text-center mb-4">
+                        <i class="bi bi-bar-chart-line-fill text-info me-2"></i>
+                        Fatores mais influentes nesta simulação
+                    </h4>
+
+                    <div>
+                        {% for nome, peso in explicacao %}
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <span class="fw-semibold text-white">{{ nome }}</span>
+                                <small class="text-white fw-bold">{{ "%.2f"|format(peso * 100) }}%</small>
+                            </div>
+                            <div class="progress" style="height: 8px; background-color: rgba(255,255,255,0.1); border-radius: 10px; overflow: hidden;">
+                                <div class="progress-bar gradient-bar"
+                                     role="progressbar"
+                                     style="width: 0%;"
+                                     data-width="{{ peso * 100 }}">
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <style>
+                .gradient-bar {
+                    background: linear-gradient(90deg, #00b4d8, #90e0ef, #caf0f8);
+                    animation: glow 2s infinite alternate;
+                    transition: width 1.5s ease-in-out;
+                }
+                @keyframes glow {
+                    0% { box-shadow: 0 0 5px #00b4d8, 0 0 10px #0077b6; }
+                    100% { box-shadow: 0 0 15px #90e0ef, 0 0 30px #00b4d8; }
+                }
+                </style>
+
+                <script>
+                document.addEventListener("DOMContentLoaded", () => {
+                    document.querySelectorAll(".gradient-bar").forEach(barra => {
+                        const width = barra.getAttribute("data-width");
+                        setTimeout(() => {
+                            barra.style.width = width + "%";
+                        }, 400);
+                    });
+                });
+                </script>
+                {% endif %}
+
+        </div>
+    </div>
+    <div class="container mt-5">
+        <div class="row g-4 align-items-center">
+        <div class="container bg-dark border rounded p-5 shadow">
+            <h2 class="mb-4 text-center">Sobre o Projeto</h2>
+            <p class="lead">
+                Este projeto é um simulador interativo de aprovação de crédito, desenvolvido como parte do meu portfólio de Data Science e Machine Learning.
+                O sistema utiliza um modelo <strong>XGBoost Classifier</strong> treinado para estimar a probabilidade de inadimplência com base em informações financeiras e pessoais do solicitante.
+            </p>
+
+            <h3 class="mt-4">⚙️ Como funciona</h3>
+            <p>
+                O usuário preenche um formulário com dados como idade, renda, valor do empréstimo, finalidade e histórico de crédito.
+                Essas informações passam por um pipeline de pré-processamento automatizado, onde são transformadas e padronizadas de acordo com o modelo treinado.
+                Em seguida, o modelo faz a previsão e o site exibe:
+            </p>
+            <ul>
+                <li>✅ Se o crédito seria aprovado ou negado;</li>
+                <li>📉 A probabilidade estimada de inadimplência;</li>
+                <li>💸 A renda anual estimada;</li>
+                <li>🧾 O score informado e o grau de crédito (A–G);</li>
+                <li>💰 A taxa de juros aplicada automaticamente conforme o grau.</li>
+            </ul>
+
+            <h3 class="mt-4">🧩 Modelagem e Preparação dos Dados</h3>
+            <p>
+                O modelo foi treinado em dados históricos de solicitações de crédito contendo variáveis demográficas e financeiras. Durante a preparação dos dados:
+            </p>
+            <ul>
+                <li>🔹 A coluna <code>person_emp_length</code> (tempo de emprego) foi removida por apresentar muitos valores ausentes e baixa relevância;</li>
+                <li>🔹 A variável <code>loan_percent_income</code> foi substituída por <code>loan_to_income_ratio</code>, representando a proporção entre o valor solicitado e a renda anual — uma métrica mais interpretável e estável;</li>
+                <li>🔹 Taxas de juros ausentes foram preenchidas automaticamente com a mediana de cada <code>loan_grade</code>;</li>
+                <li>🔹 A variável <code>scale_pos_weight</code> foi ajustada para balancear as classes e melhorar a sensibilidade (recall) para a classe minoritária (inadimplentes).</li>
+            </ul>
+
+            <p class="mt-3"><strong>Taxas medianas aplicadas por grau de crédito:</strong></p>
+            <ul>
+                <li>🅰️ A: 7.49%</li>
+                <li>🅱️ B: 10.99%</li>
+                <li>🅲 C: 13.48%</li>
+                <li>🅳 D: 15.31%</li>
+                <li>🅴 E: 16.82%</li>
+                <li>🅵 F: 18.53%</li>
+                <li>🅶 G: 20.11%</li>
+            </ul>
+
+            <p class="mt-3">
+                Essa abordagem permitiu que o modelo aprendesse a relação natural entre o grau de crédito e a taxa de juros, refletindo melhor o comportamento real do mercado financeiro.
+            </p>
+
+            <h3 class="mt-4">🤖 Modelo de Machine Learning</h3>
+            <p>
+                Após testar diversos algoritmos supervisionados (<strong>Random Forest</strong>, <strong>Gradient Boosting</strong>, <strong>Logistic Regression</strong>, <strong>SGDClassifier</strong> e <strong>XGBoost</strong>),
+                o <strong>XGBoost</strong> foi selecionado como modelo final por apresentar o melhor equilíbrio entre precisão, recall e estabilidade.
+            </p>
+
+            <p>Configurações principais do modelo:</p>
+            <pre class="bg-secondary text-white p-3 rounded"><code>XGBClassifier(
+        n_estimators=2000,          # número total de árvores
+        learning_rate=0.08,         # taxa de aprendizado
+        max_depth=6,                # profundidade máxima das árvores
+        subsample=0.9,              # amostragem para reduzir overfitting
+        colsample_bytree=0.8,       # fração de colunas usadas por árvore
+        random_state=42,            # reprodutibilidade
+        tree_method="hist",         # método otimizado para CPU
+        scale_pos_weight=ratio,     # balanceamento da classe minoritária
+        eval_metric="aucpr"         # prioriza precisão no recall dos inadimplentes
+    )</code></pre>
+
+            <p class="mt-3"><strong>📊 Desempenho do modelo:</strong></p>
+            <ul>
+                <li>Accuracy: ≈ 93%</li>
+                <li>F1-Score: ~0.82</li>
+                <li>AUC (Área sob a curva ROC): 0.95</li>
+            </ul>
+
+            <p>
+                O modelo final foi calibrado e ajustado para uso prático no simulador, garantindo previsões consistentes mesmo com pequenas variações nas entradas.
+            </p>
+
+            <h3 class="mt-4">🌐 Integração com o Site</h3>
+            <p>
+                A integração foi feita com <strong>Flask</strong>, utilizando um <strong>Blueprint</strong> dedicado ao simulador de crédito.
+                A rota <code>/projetos/simulador-credito</code> carrega o modelo e o pré-processador uma única vez, garantindo desempenho e eficiência.
+            </p>
+
+            <p>O fluxo de execução é simples e direto:</p>
+            <ol>
+                <li>O usuário preenche o formulário no site.</li>
+                <li>Os dados são transformados pelo pré-processador salvo (<code>preprocessor_simulador.pkl</code>).</li>
+                <li>O modelo (<code>XGBClassifier_simulador.pkl</code>) realiza a previsão.</li>
+                <li>O resultado é exibido com aprovação, risco de inadimplência e informações financeiras complementares.</li>
+            </ol>
+
+            <h3 class="mt-4">🎨 Interface Visual</h3>
+            <p>
+                A interface foi construída com <strong>Bootstrap 5</strong> e <strong>Jinja2</strong>, mantendo uma estética limpa e moderna inspirada em dashboards financeiros.
+            </p>
+
+            <ul>
+                <li>Formulário centralizado e responsivo;</li>
+                <li>Campos persistentes após submissão (mantém os valores digitados);</li>
+                <li>Feedback visual com cores e ícones — verde (aprovado), vermelho (negado), amarelo (risco elevado);</li>
+                <li>Layout adaptado para dispositivos móveis e desktops.</li>
+            </ul>
+
+            <h3 class="mt-4">📂 Estrutura de Arquivos</h3>
+            <pre class="bg-secondary text-white p-3 rounded"><code>ml_models/
+    ├── model_train_simulador.py          # Script de treino do modelo
+    ├── model_predict_simulador.py        # Funções de carregamento e predição
+    ├── preprocessor_simulador.pkl        # Pré-processador salvo
+    ├── feature_columns_simulador.pkl     # Lista das colunas utilizadas
+    ├── XGBClassifier_simulador.pkl       # Modelo final treinado
+    └── taxas_por_grade.pkl               # Tabela de taxas medianas por grau
+
+    templates/
+    └── projetos/
+        └── simulador-credito.html        # Template da interface do simulador
+
+    views.py                              # Blueprint Flask (rotas)
+    app.py                                # Aplicação principal Flask
+    </code></pre>
+
+            <h3 class="mt-4">🚀 Tecnologias Utilizadas</h3>
+            <ul>
+                <li><strong>Python</strong> (pandas, scikit-learn, XGBoost, joblib)</li>
+                <li><strong>Flask</strong> (backend e gerenciamento de rotas)</li>
+                <li><strong>Bootstrap 5</strong> (interface responsiva)</li>
+                <li><strong>HTML + Jinja2</strong> (renderização dinâmica)</li>
+                <li><strong>Render</strong> (deploy e hospedagem do portfólio)</li>
+            </ul>
+
+            <h3 class="mt-4">📊 Demonstração</h3>
+            <p>
+                O simulador permite testar diferentes cenários de crédito alterando variáveis como renda mensal, valor do empréstimo e score.
+                Os resultados são exibidos de forma intuitiva, como no exemplo:
+            </p>
+
+            <pre class="bg-secondary text-white p-3 rounded"><code>✅ Crédito Aprovado
+    Risco de inadimplência: 9.49%
+    Renda anual estimada: R$ 52.000,00
+    Score informado: 600 (Grau D)
+    Taxa de juros aplicada: 15.31%</code></pre>
+
+            {% if importancias %}
+                <div class="mt-5">
+                    <h3 class="text-center mb-4">📈 Importância das Variáveis</h3>
+                    <canvas id="chartImportancia" height="450"></canvas>
+                </div>
+
+                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                <script>
+                    const nomesLegiveis = {{ nomes_legiveis|tojson }};
+                    const labelsOriginais = {{ importancias.keys()|list|tojson }};
+                    const valores = {{ importancias.values()|list|tojson }};
+                    const labelsLegiveis = labelsOriginais.map(lbl => nomesLegiveis[lbl] || lbl);
+
+                    const ctx = document.getElementById('chartImportancia').getContext('2d');
+                    const chartData = {
+                        labels: labelsLegiveis,
+                        datasets: [{
+                            label: 'Importância relativa',
+                            data: valores,
+                            borderWidth: 1,
+                            backgroundColor: 'rgba(0, 200, 255, 0.7)',
+                            borderRadius: 6,
+                        }]
+                    };
+
+                    new Chart(ctx, {
+                        type: 'bar',
+                        data: chartData,
+                        options: {
+                            indexAxis: 'y',
+                            scales: {
+                                x: {
+                                    beginAtZero: true,
+                                    ticks: { color: '#bde0fe', font: { size: 13 } },
+                                    grid: { color: 'rgba(255,255,255,0.1)' }
+                                },
+                                y: {
+                                    ticks: { color: '#f1faee', font: { size: 13 } },
+                                    grid: { color: 'rgba(255,255,255,0.05)' }
+                                }
+                            },
+                            plugins: {
+                                legend: { display: false },
+                                tooltip: {
+                                    backgroundColor: '#1a1a1a',
+                                    titleColor: '#fff',
+                                    bodyColor: '#bde0fe'
+                                }
+                            }
+                        }
+                    });
+                </script>
+                {% endif %}
+        </div>
+    </div>
+
+</section>
+{% endblock %}

@@ -3,15 +3,19 @@
 <head>
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='/style.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='/css/projects.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/icon.png') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <title>{% block title %}Portfólio{% endblock %}</title>
+        {% block extra_css %}
+            {% if request.endpoint %}
+                {% set css_file = 'css/' + request.endpoint.replace('-', '_').split('.')[-1] + '.css' %}
+                <link rel="stylesheet" href="{{ url_for('static', filename=css_file) }}">
+            {% endif %}
+        {% endblock %}
 </head>
 
 <body>
-
     <i class="bi bi-list menu-mobile"></i>
 
     <aside id="header">
@@ -55,6 +59,13 @@
                     <a class="nav-link" href="/#projetos" onclick="ativarLink(this)">
                         <i class="bi bi-collection" aria-hidden="true"></i>
                         Projetos
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/projetos" onclick = ativarLink(this)>
+                        <i class ="bi bi-collection-fill" aria-hidden="true"></i>
+                         Todos os Projetos
                     </a>
                 </li>
 
