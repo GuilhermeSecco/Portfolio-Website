@@ -12,6 +12,9 @@ import numpy as np
 def index():
     return render_template('index.html')
 
+def index_en():
+    return render_template('index_en.html')
+
 def projetos():
     return render_template('projetos.html')
 
