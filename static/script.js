@@ -21,6 +21,33 @@ function ativarLink(linkClicado){
     linkClicado.classList.add('active');
 }
 
+document.addEventListener('DOMContentLoaded', () => {
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    // Create an observer to watch each section
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Remove 'active' from all links
+                navLinks.forEach(link => link.classList.remove('active'));
+                // Add 'active' to the link corresponding to the intersecting section
+                const currentId = entry.target.id;
+                document.querySelector(`.nav-link[href="#${currentId}"]`).classList.add('active');
+            }
+        });
+    }, {
+        // Options: rootMargin makes it trigger a bit before the section hits the top
+        rootMargin: '0%', // Adjust as needed (e.g., '-50% 0px -50% 0px')
+        threshold: 0.5 // Trigger when 10% of the section is visible
+    });
+
+    // Observe each section
+    sections.forEach(section => {
+        observer.observe(section);
+    });
+});
+
 /* Fecha o menu quando clicar em algum item e muda o icone para list */
 
 const navItem = document.querySelectorAll('.nav-item')

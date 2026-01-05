@@ -20,7 +20,7 @@
 
     <aside id="header">
         <section class="profile">
-            <img src="{{ url_for('static', filename='img/Profile.png') }}">
+            <a href="/#inicio"><img id="profile-img" src="{{ url_for('static', filename='img/Profile.png') }}" alt="Foto de Guilherme Fernandes Secco"></a>
             <h1>Guilherme Fernandes Secco</h1>
             <div class="social-links mt-4 text-center">
                 <a target="_blank" href="https://www.linkedin.com/in/guilherme-f-secco/">
@@ -29,50 +29,39 @@
                 <a target="_blank" href="https://github.com/GuilhermeSecco">
                     <i class="bi bi-github"></i>
                 </a>
+                <a target="_blank" href="mailto:guilhermefsecco@hotmail.com">
+                    <i class="bi bi-envelope-at-fill"></i>
+                </a>
             </div>
         </section>
 
         <nav id="navbar" class="nav-menu">
             <ul class="nav flex-column">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/#inicio" onclick="ativarLink(this)">
+                    <a class="nav-link" aria-current="page" href="/#inicio" onclick = ativarLink(this)>
                         <i class="bi bi-house" aria-hidden="true"></i>
-                        Início
+                        Home
                     </a>
                 </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="/#sobre" onclick="ativarLink(this)">
+                 <li class="nav-item">
+                    <a class="nav-link" href="/#sobre" onclick = ativarLink(this)>
                         <i class="bi bi-person" aria-hidden="true"></i>
-                        Sobre
+                        About Me
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="/#habilidades" onclick="ativarLink(this)">
+                    <a class="nav-link" href="/#habilidades" onclick = ativarLink(this)>
                         <i class="bi bi-list-check" aria-hidden="true"></i>
-                        Habilidades
+                        Skills
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="/#projetos" onclick="ativarLink(this)">
-                        <i class="bi bi-collection" aria-hidden="true"></i>
-                        Projetos
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="/projetos" onclick = ativarLink(this)>
-                        <i class ="bi bi-collection-fill" aria-hidden="true"></i>
-                         Todos os Projetos
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="/#contato" onclick="ativarLink(this)">
-                        <i class="bi bi-envelope" aria-hidden="true"></i>
-                        Contato
+                    <a class="nav-link" href="/#projetos" onclick = ativarLink(this)>
+                        <i class ="bi bi-collection" aria-hidden="true"></i>
+                        Projects
                     </a>
                 </li>
             </ul>

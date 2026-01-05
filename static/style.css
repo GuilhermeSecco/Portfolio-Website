@@ -36,6 +36,11 @@ section#inicio span#subtitle{
     border-radius: 50%;
 }
 
+#header .profile img:hover {
+    border: 8px solid #149ddd;
+    transition: 0.5s;
+}
+
 #header .profile h1 {
     font-size: 20px;
     margin: 0;
@@ -96,7 +101,7 @@ section#inicio span#subtitle{
 }
 
 section#inicio {
-    background-image: url("./img/bannerPortifolio.png");
+    background-image: url("./img/bannerPortifolio.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
@@ -362,4 +367,43 @@ i.menu-mobile {
         width:300px;
         z-index:9999;
     }
+}
+
+.card:hover{
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    transition: 0.4s ease;
+    z-index: 1000;
+}
+
+.card-text{
+  height: 3em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.5em;
+  color: #bbb;
+}
+
+.btn-outline-primary:hover {
+  box-shadow: 0 0 12px rgba(0, 123, 255, 0.6);
+}
+
+.btn-outline-danger:hover {
+  box-shadow: 0 0 12px rgba(255, 0, 0, 0.6);
+}
+
+.card img {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  object-position: top;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  overflow: visible;
+  transition: 0.3s ease;
+  border-radius: 12px;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+.card:hover img {
+  transform: scale(1.05);
+  opacity: 0.9;
 }

@@ -12,13 +12,7 @@ import numpy as np
 def index():
     return render_template('index.html')
 
-def index_en():
-    return render_template('index_en.html')
-
-def projetos():
-    return render_template('projetos.html')
-
-bp_simulador = Blueprint("simulador_credito", __name__)
+bp_simulador = Blueprint("credit_simulator", __name__)
 
 modelo, preproc, cols = carregar_modelo()
 
@@ -31,10 +25,10 @@ if not importancias:
 taxas_por_grade = load(os.path.join("ml_models", "taxas_por_grade.pkl"))
 
 #Rota do simulador
-@bp_simulador.route("/projetos/simulador-credito", methods=["GET", "POST"])
-def simulador_credito():
+@bp_simulador.route("/projetos/credit-simulator", methods=["GET", "POST"])
+def credit_simulator():
     if request.method == "GET":
-        return render_template("projetos/simulador-credito.html", importancias=importancias,
+        return render_template("projetos/credit_simulator.html", importancias=importancias,
                                nomes_legiveis=NOMES_LEGIVEIS)
 
     form_data = request.form.to_dict()
@@ -82,7 +76,7 @@ def simulador_credito():
     explicacao = explicar_previsao(X_ready, importancias)
 
     return render_template(
-        "projetos/simulador-credito.html",
+        "projetos/credit_simulator.html",
         resultado=resultado,
         dados=form_data,
         importancias=importancias,
