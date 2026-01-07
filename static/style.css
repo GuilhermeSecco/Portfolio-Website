@@ -240,10 +240,6 @@ i.menu-mobile {
     display: none;
 }
 
-#projetos_ver_todos:hover {
-  box-shadow: 0 0 12px rgba(0, 123, 255, 0.6);
-}
-
 @media (min-width: 1025px){
     #main{
         margin-left: 300px;
@@ -321,14 +317,6 @@ i.menu-mobile {
     left: 0;
     opacity: 0;
     }
-
-    .project-preview:hover .hover-gif {
-    opacity: 1;
-    }
-
-    .project-preview:hover .static-img {
-    opacity: 0;
-    }
     
     .titulo-badges {
     flex: wrap;
@@ -341,20 +329,6 @@ i.menu-mobile {
         padding: 0.4em 0.6em;
         box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
-
-    .carousel-control-prev{
-        margin-left: -4.6rem;
-        width: 4vw;
-    }
-    .carousel-control-next{
-        margin-right: -4.6rem;
-        width: 4vw;
-    }
-        .carousel-control-prev:hover,
-        .carousel-control-next:hover{
-        background-color: rgba(40, 31, 122, 0.5);
-        border-radius: 10px;
-    }
     
     [data-anime="right"] {
     transform: translate3d(50px, 0, 0);
@@ -386,24 +360,12 @@ i.menu-mobile {
 
 .btn-outline-primary:hover {
   box-shadow: 0 0 12px rgba(0, 123, 255, 0.6);
+  color:white !important;
+  transition: 0.4s;
 }
 
 .btn-outline-danger:hover {
   box-shadow: 0 0 12px rgba(255, 0, 0, 0.6);
-}
-
-.card img {
-  width: 100%;
-  height: 240px;
-  object-fit: cover;
-  object-position: top;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
-  overflow: visible;
-  transition: 0.3s ease;
-  border-radius: 12px;
-  transition: transform 0.4s ease, opacity 0.4s ease;
-}
-.card:hover img {
-  transform: scale(1.05);
-  opacity: 0.9;
+  color:white !important;
+  transition: 0.4s;
 }
