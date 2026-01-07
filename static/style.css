@@ -58,7 +58,6 @@ section#inicio span#subtitle{
     margin-right: 1rem;
     border-radius: 50%;
     transition: 0.3s;
-    text-decoration: none;
 }
 
 #header .profile .social-links a:hover {
