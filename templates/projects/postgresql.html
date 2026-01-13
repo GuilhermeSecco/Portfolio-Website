@@ -1,0 +1,220 @@
+{% extends "base.html" %}
+{% block title %}PostgreSQL{% endblock %}
+
+{% block content %}
+    <section class="project-details text-white" style="background: #021a3b; min-height: 100vh;">
+        <div class="container p-3" style="background: hsl(214, 89%, 7%);">
+            <h1>PostgreSQL Project</h1>
+            <p>This project involves the use of PostgreSQL for database management and data storage.
+                It includes the design and implementation of a relational database schema, as well as 
+                the development of SQL queries for data manipulation and retrieval.</p>
+            <h3>Technologies Used:</h3>
+            <ul>
+                <li>PostgreSQL</li>
+                <li>SQL</li>
+                <li>Power BI</li>
+            </ul>
+            <h3>Project Highlights:</h3>
+            <ul>
+                <li>Designed a normalized database schema to ensure data integrity.</li>
+                <li>Implemented complex SQL queries for data analysis and reporting.</li>
+                <li>Optimized database performance through indexing and query tuning.</li>
+            </ul>
+
+            <div id="erd-section" style=" padding-top: 5px; padding-bottom: 5px; margin-top: 20px;
+                border-radius: 5px; text-align: start;">
+                <button class="btn text-white fs-4" type="button" data-bs-toggle="collapse" data-bs-target="#erd" aria-expanded="false" aria-controls="collapseExample" id="erd-btn" style="display: inline-block;">
+                    <h3>Entity Relationship Diagram <i id="erd-arrow" class="bi bi-arrow-down"></i></h3>
+                </button>
+                <br><img src="{{ url_for('static', filename='img/projects/postgresql/ER_Diagram.png')}}" alt="ER Diagram" class="img-fluid collapse p-2" id="erd" style="background: #181a1d; border-radius: 2%">
+            </div>
+
+            <div id="queries-section" class="mt-4" style="background-color: #021124;
+                padding-top: 5px; padding-bottom: 5px; margin-top: 20px;
+                border-radius: 5px; text-align: start; display: inline-block;;">
+                <button class="btn text-white fs-4" type="button" data-bs-toggle="collapse" data-bs-target="#queries" aria-expanded="false" aria-controls="collapseExample" id="queries-btn" style="transition:0.5s;">
+                    <h3>Queries <i id="q-arrow" class="bi bi-arrow-down"></i></h3>
+                </button>
+                <ul class="collapse pt-2" id ="queries" style="background-color: rgb(1, 18, 39);">
+                    <li>
+                        <h4 class="mt-2">Query 1 - Daily Revenue with Weekly Average</h4>                  
+                        <div>
+                            <h5>Description:</h5> Calculates daily revenue and computes a weekly average.
+                        </div>
+                        <h5 class="mt-2">SQL Code:</h5>
+                        <div class="p-2" style="background: #181a1d; border-radius: 2%; display: inline-block;">
+                            <img src="{{ url_for('static', filename='img/projects/postgresql/Query_6.png')}}" alt="Query_6" class="img-fluid">
+                        </div>
+                        <h5 class="mt-2">Results:</h5>
+                        <div class="p-2" style="background: #181a1d; border-radius: 2%; display: inline-block;">
+                            <img src="{{ url_for('static', filename='img/projects/postgresql/Result_6.png')}}" alt="Result_6" class="img-fluid">
+                        </div>
+                        <div class="mt-3 mb-2">
+                            <h5>Insight:</h5>Analyzing the weekly moving average allows for smoothing out daily fluctuations and identifying the true growth or decline trends in sales by eliminating noise from isolated peaks.
+                        </div>
+                        <div class="mb-2">
+                            <h5>Business Value:</h5> It assists the planning team in forecasting inventory and staffing needs based on medium-term trends rather than just the previous day's performance.
+                        </div>
+                        <div>
+                            <h5>Visualization:</h5> 
+                            <p>The following graph illustrates the monthly revenue highlighting trends and fluctuations over time.</p>
+                            <img src="{{ url_for('static', filename='img/projects/postgresql/Graph_1.png')}}" alt="Graph_1" class="img-fluid pt-2"
+                            style="border: 2px solid white !important;">
+                        </div>
+                        
+                    </li>
+
+                    <li class="mt-5">
+                        <h4>Query 2 - Products Prices Ranked by Category</h4>
+                        <div>
+                            <h5>Description:</h5> Ranks products within each category based on their prices.
+                        </div>
+                        <h5 class="mt-2">SQL Code:</h5>
+                        <div class="p-2" style="background: #181a1d; border-radius: 2%; display: inline-block;">
+                            <img src="{{ url_for('static', filename='img/projects/postgresql/Query_5.png')}}" alt="Query_5" class="img-fluid"><br>
+                        </div>
+                        <h5 class="mt-2">Results:</h5>
+                        <div class="p-2" style="background: #181a1d; border-radius: 2%; display: inline-block;">
+                            <img src="{{ url_for('static', filename='img/projects/postgresql/Result_5.png')}}" alt="Result_5" class="img-fluid">
+                        </div>
+                        <div class="mt-3 mb-2">
+                            <h5>Insight:</h5> By utilizing DENSE_RANK, it is possible to identify "premium" (high-end) products within each segment without skipping positions in the classification.
+                        </div>
+                        <div class="mb-2">
+                            <h5>Business Value:</h5> Enables the marketing team to create targeted campaigns for "Luxury/Premium" audiences within specific categories.
+                        </div>
+                    </li>
+
+                    <li class="mt-5">
+                        <h4>Query 3 - Top 5 most profitable categories.</h4>
+                        <div>
+                            <h5>Description:</h5> Retrieves the top 5 product categories that have generated the highest total profit.
+                        </div>
+                        <h5 class="mt-2">SQL Code:</h5>
+                        <div class="p-2" style="background: #181a1d; border-radius: 2%; display: inline-block;">
+                            <img src="{{ url_for('static', filename='img/projects/postgresql/Query_1.png')}}" alt="Query_1" class="img-fluid">
+                        </div>
+                        <h5 class="mt-2">Results:</h5>
+                        <div class="p-2" style="background: #181a1d; border-radius: 2%; display: inline-block;">
+                            <img src="{{ url_for('static', filename='img/projects/postgresql/Result_1.png')}}" alt="Result_1" class="img-fluid">
+                        </div>
+                        <div class="mt-3 mb-2">
+                            <h5>Insight:</h5> Identifies the primary revenue drivers for the company.
+                            Categories such as Health & Beauty and Watches & Gifts emerge as leaders,
+                            accounting for a significant portion of total profit.
+                        </div>
+                        <div class="mb-2">
+                            <h5>Business Value:</h5> Directs investment in advertising and partnerships 
+                            toward the categories that yield the highest direct return on investment (ROI).
+                        </div>
+                        <div>
+                            <h5>Visualization:</h5> 
+                            <p>The following graph illustrates the top 5 most profitable categories.</p>
+                            <img src="{{ url_for('static', filename='img/projects/postgresql/Graph_3.png')}}" alt="Graph_3" class="img-fluid pt-2"
+                            style="border: 2px solid white !important;">
+                        </div>
+                    </li>
+                    <li class="mt-5">
+                        <h4>Query 4 - Categories Percentage Ranking</h4>
+                        <div class="mb-2">
+                            <h5>Description:</h5> Calculates the percentage contribution of each product category to the total income.
+                        </div>
+                        <h5 class="mt-2">SQL Code:</h5>
+                        <div class="p-2" style="background: #181a1d; border-radius: 2%; display: inline-block;">
+                            <img src="{{ url_for('static', filename='img/projects/postgresql/Query_4.png')}}" alt="Query_4" class="img-fluid">
+                        </div>
+                        <h5 class="mt-2">Results:</h5>
+                        <div class="p-2" style="background: #181a1d; border-radius: 2%; display: inline-block;">
+                            <img src="{{ url_for('static', filename='img/projects/postgresql/Result_4.png')}}" alt="Result_4" class="img-fluid">
+                        </div>
+                        <div class="mt-3 mb-2">
+                            <h5>Insight:</h5> This Pareto-style analysis reveals that the top categories 
+                            represent a disproportionate percentage of total income, often following the 
+                            80/20 rule where a small group of products generates most of the revenue.
+                        </div>
+                        <div class="mb-2">
+                            <h5>Business Value:</h5> Critical for merchandising decisions and 
+                            for understanding the company's dependency on specific market niches.
+                        </div>
+                    </li>
+                    <li class="mt-5">
+                        <h4>Query 5 - Cities ranked by Customer Count</h4>
+                        <div class="mb-2">
+                            <h5>Description:</h5> Ranks cities based on the number of customers in each city.
+                        </div>
+                        <h5 class="mt-2">SQL Code:</h5>
+                        <div class="p-2" style="background: #181a1d; border-radius: 2%; display: inline-block;">
+                            <img src="{{ url_for('static', filename='img/projects/postgresql/Query_2.png')}}" alt="Query_5" class="img-fluid">
+                        </div>
+                        <h5 class="mt-2">Results:</h5>
+                        <div class="p-2" style="background: #181a1d; border-radius: 2%; display: inline-block;">
+                            <img src="{{ url_for('static', filename='img/projects/postgresql/Result_2.png')}}" alt="Result_5" class="img-fluid">
+                        </div>
+                        <div class="mt-3 mb-2">
+                            <h5>Insight:</h5> Customer volume is heavily concentrated in 
+                            major hubs like Rio de Janeiro, São Paulo, and Belo Horizonte. 
+                            The use of formatted location strings ensures high precision 
+                            for geographic mapping.
+                        </div>
+                        <div class="mb-2">
+                            <h5>Business Value:</h5> Guides logistics strategies, 
+                            such as establishing distribution centers (hubs) 
+                            near these clusters to reduce delivery times and 
+                            shipping costs (freight).
+                        </div>
+                    </li>
+
+                    <li class="mt-5">
+                        <h4>Query 6 - Top 10 Brazilian States by Customer Count</h4>
+                        <div class="mb-2">
+                            <h5>Description:</h5> Ranks Brazilian states based on the number of customers in each state.
+                        </div>
+                        <h5 class="mt-2">SQL Code:</h5>
+                        <div class="p-2" style="background: #181a1d; border-radius: 2%; display: inline-block;">
+                            <img src="{{ url_for('static', filename='img/projects/postgresql/Query_3.png')}}" alt="Query_6" class="img-fluid">
+                        </div>
+                        <h5 class="mt-2">Results:</h5>
+                        <div class="p-2" style="background: #181a1d; border-radius: 2%; display: inline-block;">
+                            <img src="{{ url_for('static', filename='img/projects/postgresql/Result_3.png')}}" alt="Result_6" class="img-fluid">
+                        </div>
+                        <div class="mt-3 mb-2">
+                            <h5>Insight:</h5> The state of São Paulo (SP) leads by a significant margin, 
+                            followed by RJ and MG, solidifying the Southeast region as the primary consumer market.
+                        </div>
+                        <div class="mb-2">
+                            <h5>Business Value:</h5> Allows for personalized regional promotions 
+                            and provides insights into brand penetration in states with lower 
+                            representation, such as MT and GO, where there is growth potential.
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            
+        </div>
+    </section>
+{% endblock %}
+{% block scripts %}
+    <script>
+        document.getElementById("erd-btn").addEventListener('click', () =>{
+            if(document.getElementById("erd-arrow").classList.contains("bi-arrow-down"))
+            {
+                document.getElementById("erd-arrow").classList.replace('bi-arrow-down', 'bi-arrow-up');
+            }
+            else
+            {
+                document.getElementById("erd-arrow").classList.replace("bi-arrow-up", 'bi-arrow-down');
+            }
+        });
+
+        document.getElementById("queries-btn").addEventListener('click', () =>{
+            if(document.getElementById("q-arrow").classList.contains("bi-arrow-down"))
+            {
+                document.getElementById("q-arrow").classList.replace('bi-arrow-down', 'bi-arrow-up');
+            }
+            else
+            {
+                document.getElementById("q-arrow").classList.replace("bi-arrow-up", 'bi-arrow-down');
+            }
+        });
+    </script>
+{% endblock %}

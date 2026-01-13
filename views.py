@@ -25,10 +25,10 @@ if not importancias:
 taxas_por_grade = load(os.path.join("ml_models", "taxas_por_grade.pkl"))
 
 #Rota do simulador
-@bp_simulador.route("/projetos/credit-simulator", methods=["GET", "POST"])
+@bp_simulador.route("/projects/credit-simulator", methods=["GET", "POST"])
 def credit_simulator():
     if request.method == "GET":
-        return render_template("projetos/credit_simulator.html", importancias=importancias,
+        return render_template("projects/credit_simulator.html", importancias=importancias,
                                nomes_legiveis=NOMES_LEGIVEIS)
 
     form_data = request.form.to_dict()
@@ -83,3 +83,8 @@ def credit_simulator():
         explicacao=explicacao,
         nomes_legiveis=NOMES_LEGIVEIS
     )
+
+#Rota do PostgreSQL
+@bp_simulador.route("/projects/postgresql")
+def postgresql_page():
+    return render_template("projects/postgresql.html")
