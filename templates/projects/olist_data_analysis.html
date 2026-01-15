@@ -27,7 +27,7 @@
                 </p>
                 <img src="{{ url_for('static', filename='img/projects/olist_data_analysis/Executive_Overview.png')}}" 
                 alt="Overview_Dashboard" class="img-fluid p-2" 
-                style="background: #181a1d;">
+                style="background: #181a1d; border-radius: 1%;">
             </div>
             <div class="mt-4">
                 <h2>Core Technologies</h2>
@@ -45,7 +45,7 @@
             <ul class="fs-5" style="line-height: 1.8;">
                 <li><a href="#q1" style="color: #1fb4ff; text-decoration: none;">How is the business performing over time?</a></li>
                 <li><a href="#q2" style="color: #1fb4ff; text-decoration: none;">Which categories have the highest product prices?</a></li>
-                <li><a href="#q3" style="color: #1fb4ff; text-decoration: none;">Which product categories drive the most profit?</a></li>
+                <li><a href="#q3" style="color: #1fb4ff; text-decoration: none;">Which product categories contribute most to total profit?</a></li>
                 <li><a href="#q4" style="color: #1fb4ff; text-decoration: none;">How are the categories distributed in percentage?</a></li>
                 <li><a href="#q5" style="color: #1fb4ff; text-decoration: none;">Where are the best places for distribution centers?</a></li>
                 <li><a href="#q6" style="color: #1fb4ff; text-decoration: none;">How does customer distribution vary across regions?</a></li>
@@ -60,7 +60,8 @@
             <div class="mt-4" id="erd-section" style=" padding-top: 5px; padding-bottom: 5px; margin-top: 20px;
                     border-radius: 5px; text-align: start;">
                 <h2>Entity Relationship Diagram</h2>
-                <img src="{{ url_for('static', filename='img/projects/olist_data_analysis/ER_Diagram.png')}}" alt="ER Diagram" class="img-fluid p-2" style="background: #181a1d; border-radius: 1%">
+                <img src="{{ url_for('static', filename='img/projects/olist_data_analysis/ER_Diagram.png')}}" id="erd" alt="ER Diagram" class="img-fluid p-2" 
+                style="background: #181a1d; border-radius: 1%;">
             </div>
 
             <div id="queries-section" class="mt-4" style="background-color: #021124;
@@ -76,13 +77,25 @@
                             <h5>Description:</h5> <p style="color: #e1e1e1;">Calculates daily revenue and computes a weekly average.</p>
                         </div>
                         <h5 class="mt-2">SQL Code:</h5>
-                        <div class="p-2" style="background: #181a1d; border-radius: 2%; display: inline-block;">
-                            <img src="{{ url_for('static', filename='img/projects/olist_data_analysis/Query_6.png')}}" alt="Query_6" class="img-fluid">
-                        </div>
+                        <pre class="p-2" style="background: #181a1d; border-radius: 2%;
+                        display: inline-block; color: #e1e1e1;">With daily_revenue as (
+    SELECT SUM(oi.price) AS revenue,
+        o.order_approved_at::date AS p_date
+    FROM orders o   
+        JOIN order_items oi ON o.order_id = oi.order_id
+    GROUP BY p_date
+    )
+
+SELECT p_date, revenue,
+    ROUND(AVG(revenue) OVER 
+    (ORDER BY p_date ROWS BETWEEN 6 PRECEDING AND CURRENT ROW)::numeric, 2) AS weekly_avg
+FROM daily_revenue;</pre>
                         <h5 class="mt-2">Results:</h5>
                         <div class="p-2" style="background: #181a1d; border-radius: 2%; display: inline-block;">
-                            <img src="{{ url_for('static', filename='img/projects/olist_data_analysis/Result_6.png')}}" alt="Result_6" class="img-fluid">
+                            <img src="{{ url_for('static', filename='img/projects/olist_data_analysis/Result_6.png')}}" alt="Result_6" class="img-fluid"
+                            style="max-width: 320px;">
                         </div>
+                        <p class="mt-2" style="color: #e1e1e1;"><b>Note:</b> Profit calculations are based on available dataset attributes and do not include operational costs beyond freight.</p>
                         <div class="mt-3 mb-2">
                             <h5>Insight:</h5>
                             <p style="color: #e1e1e1;">Analyzing the weekly moving average allows for smoothing out 
@@ -98,7 +111,9 @@
                         <div>
                             <h5>Visualization:</h5> 
                             <p style="color: #e1e1e1;">The following graph illustrates the monthly revenue, helping to identify historical patterns and business evolution.</p>
-                            <img src="{{ url_for('static', filename='img/projects/olist_data_analysis/Graph_1.png')}}" alt="Graph_1" class="img-fluid pt-2">
+                        </div>
+                        <div class="pt-2">
+                            <img src="{{ url_for('static', filename='img/projects/olist_data_analysis/Graph_1.png')}}" id="graph" alt="Graph_1" class="img-fluid">
                             <p class="text-end">Graph made with CSV created from the query results.</p>
                         </div>
                         
@@ -111,16 +126,22 @@
                             <p style="color: #e1e1e1;">Ranks products within each category based on their prices.</p>
                         </div>
                         <h5 class="mt-2">SQL Code:</h5>
-                        <div class="p-2" style="background: #181a1d; border-radius: 2%; display: inline-block;">
-                            <img src="{{ url_for('static', filename='img/projects/olist_data_analysis/Query_5.png')}}" alt="Query_5" class="img-fluid"><br>
-                        </div>
+                        <pre class="p-2" style="background: #181a1d; border-radius: 2%;
+                            display: inline-block; color: #e1e1e1;">
+SELECT DISTINCT t.product_category_name_english AS Category,
+    oi.price AS Price,
+    DENSE_RANK() OVER (PARTITION BY p.product_category_name ORDER BY oi.price DESC) AS Ranking
+FROM products p 
+    JOIN order_items oi ON p.product_id = oi.product_id 
+    JOIN "translation" t ON p.product_category_name = t.product_category_name
+ORDER BY oi.price DESC, ranking ASC, t.product_category_name_english;</pre>
                         <h5 class="mt-2">Results:</h5>
-                        <div class="p-2" style="background: #181a1d; border-radius: 2%; display: inline-block;">
+                        <div class="p-2" style="background: #181a1d; border-radius: 2%; display: inline-block; max-width: 650px;">
                             <img src="{{ url_for('static', filename='img/projects/olist_data_analysis/Result_5.png')}}" alt="Result_5" class="img-fluid">
                         </div>
                         <div class="mt-3 mb-2">
                             <h5>Insight:</h5>
-                            <p style="color: #e1e1e1;">By utilizing DENSE_RANK, it is possible to identify "premium" (high-end) products within each segment without skipping positions in the classification.</p>
+                            <p style="color: #e1e1e1;">By using DENSE_RANK, it is possible to identify "premium" (high-end) products within each segment without skipping positions in the classification.</p>
                         </div>
                         <div class="mb-2">
                             <h5>Business Value:</h5>
@@ -129,23 +150,31 @@
                         <div>
                             <h5>Visualization:</h5> 
                             <p style="color: #e1e1e1;">The following graph illustrates categories that have pricier products.</p>
-                            <img src="{{ url_for('static', filename='img/projects/olist_data_analysis/Graph_2.png')}}" alt="Graph_2" class="img-fluid pt-2">
+                        </div>
+                        <div class="pt-2">
+                            <img src="{{ url_for('static', filename='img/projects/olist_data_analysis/Graph_2.png')}}" id="graph" alt="Graph_2" class="img-fluid">
                             <p class="text-end">Graph made with CSV created from the query results.</p>
                         </div>
                     </li>
 
                     <li class="mt-5 list-group-item">
-                        <h3 id="q3">Query 3 - Which product categories drive the most profit?</h3>
+                        <h3 id="q3">Query 3 - Which product categories contribute most to total profit?</h3>
                         <div>
                             <h5>Description:</h5> 
                             <p style="color: #e1e1e1;">Retrieves the top 5 product categories that have generated the highest total profit.</p>
                         </div>
                         <h5 class="mt-2">SQL Code:</h5>
-                        <div class="p-2" style="background: #181a1d; border-radius: 2%; display: inline-block;">
-                            <img src="{{ url_for('static', filename='img/projects/olist_data_analysis/Query_1.png')}}" alt="Query_1" class="img-fluid">
-                        </div>
+                            <pre class="p-2" style="background: #181a1d; border-radius: 2%;
+                            display: inline-block; color: #e1e1e1;">SELECT t.product_category_name_english AS category,
+    ROUND(SUM(oi.price * oi.order_item_id)) AS income
+FROM products p 
+    JOIN order_items oi ON p.product_id = oi.product_id 
+    JOIN translation t ON p.product_category_name = t.product_category_name 
+GROUP BY t.product_category_name_english 
+ORDER BY income DESC
+LIMIT 5;</pre>
                         <h5 class="mt-2">Results:</h5>
-                        <div class="p-2" style="background: #181a1d; border-radius: 2%; display: inline-block;">
+                        <div class="p-2" style="background: #181a1d; border-radius: 2%; display: inline-block; max-width: 400px;">
                             <img src="{{ url_for('static', filename='img/projects/olist_data_analysis/Result_1.png')}}" alt="Result_1" class="img-fluid">
                         </div>
                         <div class="mt-3 mb-2">
@@ -162,7 +191,9 @@
                         <div>
                             <h5>Visualization:</h5> 
                             <p style="color: #e1e1e1;">The following graph illustrates the top 5 most profitable categories.</p>
-                            <img src="{{ url_for('static', filename='img/projects/olist_data_analysis/Graph_3.png')}}" alt="Graph_3" class="img-fluid pt-2">
+                                                    </div>
+                        <div class="pt-2">
+                            <img src="{{ url_for('static', filename='img/projects/olist_data_analysis/Graph_3.png')}}" id="graph" alt="Graph_3" class="img-fluid">
                             <p class="text-end">Graph made with CSV created from the query results.</p>
                         </div>
                     </li>
@@ -173,11 +204,20 @@
                             <p style="color: #e1e1e1;">Calculates the percentage contribution of each product category to the total income.</p>
                         </div>
                         <h5 class="mt-2">SQL Code:</h5>
-                        <div class="p-2" style="background: #181a1d; border-radius: 2%; display: inline-block;">
-                            <img src="{{ url_for('static', filename='img/projects/olist_data_analysis/Query_4.png')}}" alt="Query_4" class="img-fluid">
-                        </div>
+                            <pre class="p-2" style="background: #181a1d; border-radius: 2%;
+                            display: inline-block; color: #e1e1e1;">WITH income_pct AS (
+SELECT t.product_category_name_english AS category,
+    ROUND(((SUM(oi.price) / SUM(SUM(oi.price)) OVER())::NUMERIC * 100),2) AS pct
+FROM order_items oi 
+    JOIN products p ON oi.product_id = p.product_id 
+    JOIN "translation" t ON p.product_category_name = t.product_category_name 
+GROUP BY t.product_category_name_english)
+
+SELECT * FROM income_pct
+WHERE pct > 0
+ORDER BY pct DESC;</pre>
                         <h5 class="mt-2">Results:</h5>
-                        <div class="p-2" style="background: #181a1d; border-radius: 2%; display: inline-block;">
+                        <div class="p-2" style="background: #181a1d; border-radius: 2%; display: inline-block; max-width: 400px;">
                             <img src="{{ url_for('static', filename='img/projects/olist_data_analysis/Result_4.png')}}" alt="Result_4" class="img-fluid">
                         </div>
                         <div class="mt-3 mb-2">
@@ -195,7 +235,9 @@
                         <div>
                             <h5>Visualization:</h5> 
                             <p style="color: #e1e1e1;">The following graph illustrates the percentage of total income contributed by each product category.</p>
-                            <img src="{{ url_for('static', filename='img/projects/olist_data_analysis/Graph_4.png')}}" alt="Graph_4" class="img-fluid pt-2">
+                        </div>
+                        <div class="pt-2">
+                            <img src="{{ url_for('static', filename='img/projects/olist_data_analysis/Graph_4.png')}}" id="graph" alt="Graph_4" class="img-fluid">
                             <p class="text-end">Graph made with CSV created from the query results.</p>
                         </div>
                     </li>
@@ -206,11 +248,15 @@
                             <p style="color: #e1e1e1;">Ranks cities based on the number of customers in each city.</p>
                         </div>
                         <h5 class="mt-2">SQL Code:</h5>
-                        <div class="p-2" style="background: #181a1d; border-radius: 2%; display: inline-block;">
-                            <img src="{{ url_for('static', filename='img/projects/olist_data_analysis/Query_2.png')}}" alt="Query_5" class="img-fluid">
-                        </div>
+                        <pre class="p-2" style="background: #181a1d; border-radius: 2%;
+                            display: inline-block; color: #e1e1e1;">SELECT g.geolocation_city || ',' || g.geolocation_state || ',' || 'Brasil' AS geolocation,
+    COUNT(c.customer_city)
+FROM customers c 
+    JOIN geolocation g ON c.customer_zip_code_prefix = g.geolocation_zip_code_prefix 
+GROUP BY g.geolocation_city ,g.geolocation_state
+ORDER BY COUNT(c.customer_city) DESC;</pre>
                         <h5 class="mt-2">Results:</h5>
-                        <div class="p-2" style="background: #181a1d; border-radius: 2%; display: inline-block;">
+                        <div class="p-2" style="background: #181a1d; border-radius: 2%; display: inline-block; max-width: 400px;">
                             <img src="{{ url_for('static', filename='img/projects/olist_data_analysis/Result_2.png')}}" alt="Result_5" class="img-fluid">
                         </div>
                         <div class="mt-3 mb-2">
@@ -229,7 +275,9 @@
                         <div>
                             <h5>Visualization:</h5> 
                             <p style="color: #e1e1e1;">The following map shows the 15 cities with the highest customer counts.</p>
-                            <img src="{{ url_for('static', filename='img/projects/olist_data_analysis/Graph_5.png')}}" alt="Graph_5" class="img-fluid">
+                        </div>
+                        <div class="pt-2">
+                            <img src="{{ url_for('static', filename='img/projects/olist_data_analysis/Graph_5.png')}}" id="graph" alt="Graph_5" class="img-fluid">
                             <p class="text-end">Graph made with CSV created from the query results.</p>
                         </div>
                     </li>
@@ -241,11 +289,15 @@
                             <p style="color: #e1e1e1;">Ranks Brazilian states based on the number of customers in each state.</p>
                         </div>
                         <h5 class="mt-2">SQL Code:</h5>
-                        <div class="p-2" style="background: #181a1d; border-radius: 2%; display: inline-block;">
-                            <img src="{{ url_for('static', filename='img/projects/olist_data_analysis/Query_3.png')}}" alt="Query_6" class="img-fluid">
-                        </div>
+                        <pre class="p-2" style="background: #181a1d; border-radius: 2%;
+                            display: inline-block; color: #e1e1e1;">SELECT g.geolocation_state, 
+    COUNT(c.customer_state) 
+FROM customers c 
+    JOIN geolocation g on c.customer_zip_code_prefix = g.geolocation_zip_code_prefix 
+GROUP BY g.geolocation_state
+ORDER BY COUNT(c.customer_state) DESC;</pre>
                         <h5 class="mt-2">Results:</h5>
-                        <div class="p-2" style="background: #181a1d; border-radius: 2%; display: inline-block;">
+                        <div class="p-2" style="background: #181a1d; border-radius: 2%; display: inline-block; max-width: 400px;">
                             <img src="{{ url_for('static', filename='img/projects/olist_data_analysis/Result_3.png')}}" alt="Result_6" class="img-fluid">
                         </div>
                         <div class="mt-3 mb-2">
@@ -262,12 +314,23 @@
                         <div>
                             <h5>Visualization:</h5> 
                             <p style="color: #e1e1e1;">The following map illustrates the customer distribution across Brazilian states.</p>
-                            <img src="{{ url_for('static', filename='img/projects/olist_data_analysis/Graph_6.png')}}" alt="Graph_6" class="img-fluid pt-2">
+                        </div>
+                        <div class="pt-2">
+
+                            <img src="{{ url_for('static', filename='img/projects/olist_data_analysis/Graph_6.png')}}" id="graph" alt="Graph_6" class="img-fluid">
                             <p class="text-end">Graph made with CSV created from the query results.</p>
                         </div>
                     </li>
                 </ul>
             </div>
+
+            <h2> Key Strategic Takeaways</h2>
+            <ul>
+                <li class="fs-5" style="color: #e1e1e1;">Revenue growth shows sustained trend despite daily volatility</li>
+                <li class="fs-5" style="color: #e1e1e1;"><em>Health & Beauty</em> and <em>Watches & Gifts</em> concentrate a disproportionate share of profit</li>
+                <li class="fs-5" style="color: #e1e1e1;">Customer density strongly favors Southeast region, reinforcing logistics hub prioritization</li>
+                <li class="fs-5" style="color: #e1e1e1;">Pareto distribution confirms dependency on top-performing categories</li>
+            </ul>
         </div>
     </section>
 {% endblock %}

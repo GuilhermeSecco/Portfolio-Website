@@ -1,3 +1,15 @@
-.container p{
-    color: #e1e1e1 !important;
+@media (min-width: 1600px){
+    #graph {
+        max-width: 1280px !important;
+    }
+
+    #erd {
+        max-width: 700px !important;
+    }
+}
+
+@media (max-width: 1000px){
+    pre {
+        max-width: 100% !important;
+    }
 }
