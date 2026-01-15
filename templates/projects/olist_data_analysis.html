@@ -1,0 +1,275 @@
+{% extends "base.html" %}
+{% block title %}Olist Data Analysis{% endblock %}
+
+{% block content %}
+    <section class="project-details text-white" style="background: #021a3b; min-height: 100vh;">
+        <div class="container p-3" style="background: hsl(214, 89%, 7%);">
+            <div>
+                <h1>Olist Data Analysis</h1>
+                <p class="fs-5" style="color: #e1e1e1;">Building a structured environment to extract business performance insights from 100k+ records.</p>
+            </div>
+            <div class="mt-4">
+                <h2>Project Overview</h2>
+                <p class="fs-5" style="color: #e1e1e1;">This project explores the Olist dataset (the largest department store in Brazilian marketplaces)
+                to uncover hidden patterns in sales performance, customer geography,
+                and product profitability.<br>Facing a dataset of almost 100,000 orders spanning multiple tables and relationships, 
+                the goal was to build a scalable relational structure and extract high-level KPIs to drive executive decision-making.</p>
+            </div>
+            <div class="mt-4">
+                <h2>Executive Overview</h2>
+                <p class="fs-5" style="color: #e1e1e1;">
+                    This panel provides a granular day-to-day view of the marketplace operation, 
+                    highlighting daily volatility in sales and logistics.<br>
+                    Beyond temporal trends, it integrates geospatial distribution to identify regional 
+                    clusters and a categorical breakdown to pinpoint the top-performing product niches.
+                    All metrics summarize 100k+ records through optimized SQL 
+                    (<a href="#queries-section" style="color: #1fb4ff; text-decoration: none;">detailed here</a>).
+                </p>
+                <img src="{{ url_for('static', filename='img/projects/olist_data_analysis/Executive_Overview.png')}}" 
+                alt="Overview_Dashboard" class="img-fluid p-2" 
+                style="background: #181a1d;">
+            </div>
+            <div class="mt-4">
+                <h2>Core Technologies</h2>
+                <ul class="fs-5" style="color: #e1e1e1;">
+                    <li><strong>PostgreSQL:</strong> Advanced query optimization, CTEs, and Window Functions.</li>
+                    <li><strong>Relational Database Design:</strong> Data Polishing and Normalization with Entity-Relationship modeling.</li>
+                    <li><strong>Power BI & CSV Analytics:</strong> Data visualization with Business Intelligence & Storytelling.</li>
+                </ul>
+            </div>
+            <div class="mt-4">
+            <h2>The Challenge</h2>
+            <p class="fs-5" style="color: #e1e1e1;">Re-establishing a database structure within PostgreSQL and transforming it 
+                into structured environment capable of answering 
+                complex business questions.<br>Such as:</p>
+            <ul class="fs-5" style="line-height: 1.8;">
+                <li><a href="#q1" style="color: #1fb4ff; text-decoration: none;">How is the business performing over time?</a></li>
+                <li><a href="#q2" style="color: #1fb4ff; text-decoration: none;">Which categories have the highest product prices?</a></li>
+                <li><a href="#q3" style="color: #1fb4ff; text-decoration: none;">Which product categories drive the most profit?</a></li>
+                <li><a href="#q4" style="color: #1fb4ff; text-decoration: none;">How are the categories distributed in percentage?</a></li>
+                <li><a href="#q5" style="color: #1fb4ff; text-decoration: none;">Where are the best places for distribution centers?</a></li>
+                <li><a href="#q6" style="color: #1fb4ff; text-decoration: none;">How does customer distribution vary across regions?</a></li>
+            </ul>
+            </div>
+            <div class="mt-4">
+                <h2>Strategic Architecture</h2>
+                <p class="fs-5" style="color: #e1e1e1;">Everything should start with a solid foundation, as such, the first step was mapping the entity relationships
+                    to ensure that every join across the 100k+ orders remained accurate and efficient.<br>
+                    Below is the normalized database schema designed to ensure data integrity and optimized retrieval.</p>
+            </div>
+            <div class="mt-4" id="erd-section" style=" padding-top: 5px; padding-bottom: 5px; margin-top: 20px;
+                    border-radius: 5px; text-align: start;">
+                <h2>Entity Relationship Diagram</h2>
+                <img src="{{ url_for('static', filename='img/projects/olist_data_analysis/ER_Diagram.png')}}" alt="ER Diagram" class="img-fluid p-2" style="background: #181a1d; border-radius: 1%">
+            </div>
+
+            <div id="queries-section" class="mt-4" style="background-color: #021124;
+                padding-top: 5px; padding-bottom: 5px; margin-top: 20px;
+                border-radius: 5px; text-align: start; display: inline-block;;">
+
+                <h2>Queries</h2>
+
+                <ul class="collapse show pt-2" id ="queries" style="background-color: rgb(1, 18, 39);">
+                    <li class="list-group-item">
+                        <h3 class="mt-2" id="q1">Query 1 - How is the business performing over time?</h4>                  
+                        <div>
+                            <h5>Description:</h5> <p style="color: #e1e1e1;">Calculates daily revenue and computes a weekly average.</p>
+                        </div>
+                        <h5 class="mt-2">SQL Code:</h5>
+                        <div class="p-2" style="background: #181a1d; border-radius: 2%; display: inline-block;">
+                            <img src="{{ url_for('static', filename='img/projects/olist_data_analysis/Query_6.png')}}" alt="Query_6" class="img-fluid">
+                        </div>
+                        <h5 class="mt-2">Results:</h5>
+                        <div class="p-2" style="background: #181a1d; border-radius: 2%; display: inline-block;">
+                            <img src="{{ url_for('static', filename='img/projects/olist_data_analysis/Result_6.png')}}" alt="Result_6" class="img-fluid">
+                        </div>
+                        <div class="mt-3 mb-2">
+                            <h5>Insight:</h5>
+                            <p style="color: #e1e1e1;">Analyzing the weekly moving average allows for smoothing out 
+                                daily fluctuations and identifying the true growth or decline trends 
+                                in sales by eliminating noise from isolated peaks.</p>
+                        </div>
+                        <div class="mb-2">
+                            <h5>Business Value:</h5>
+                            <p style="color: #e1e1e1;">It assists the planning team in forecasting 
+                                inventory and staffing needs based on medium-term trends rather than 
+                                just the previous day's performance.</p>
+                        </div>
+                        <div>
+                            <h5>Visualization:</h5> 
+                            <p style="color: #e1e1e1;">The following graph illustrates the monthly revenue, helping to identify historical patterns and business evolution.</p>
+                            <img src="{{ url_for('static', filename='img/projects/olist_data_analysis/Graph_1.png')}}" alt="Graph_1" class="img-fluid pt-2">
+                            <p class="text-end">Graph made with CSV created from the query results.</p>
+                        </div>
+                        
+                    </li>
+
+                    <li class="mt-5 list-group-item">
+                        <h3 id="q2">Query 2 - Which categories have the highest product prices?</h3>
+                        <div>
+                            <h5>Description:</h5> 
+                            <p style="color: #e1e1e1;">Ranks products within each category based on their prices.</p>
+                        </div>
+                        <h5 class="mt-2">SQL Code:</h5>
+                        <div class="p-2" style="background: #181a1d; border-radius: 2%; display: inline-block;">
+                            <img src="{{ url_for('static', filename='img/projects/olist_data_analysis/Query_5.png')}}" alt="Query_5" class="img-fluid"><br>
+                        </div>
+                        <h5 class="mt-2">Results:</h5>
+                        <div class="p-2" style="background: #181a1d; border-radius: 2%; display: inline-block;">
+                            <img src="{{ url_for('static', filename='img/projects/olist_data_analysis/Result_5.png')}}" alt="Result_5" class="img-fluid">
+                        </div>
+                        <div class="mt-3 mb-2">
+                            <h5>Insight:</h5>
+                            <p style="color: #e1e1e1;">By utilizing DENSE_RANK, it is possible to identify "premium" (high-end) products within each segment without skipping positions in the classification.</p>
+                        </div>
+                        <div class="mb-2">
+                            <h5>Business Value:</h5>
+                            <p style="color: #e1e1e1;">Enables the marketing team to create targeted campaigns for "Luxury/Premium" audiences within specific categories.</p>
+                        </div>
+                        <div>
+                            <h5>Visualization:</h5> 
+                            <p style="color: #e1e1e1;">The following graph illustrates categories that have pricier products.</p>
+                            <img src="{{ url_for('static', filename='img/projects/olist_data_analysis/Graph_2.png')}}" alt="Graph_2" class="img-fluid pt-2">
+                            <p class="text-end">Graph made with CSV created from the query results.</p>
+                        </div>
+                    </li>
+
+                    <li class="mt-5 list-group-item">
+                        <h3 id="q3">Query 3 - Which product categories drive the most profit?</h3>
+                        <div>
+                            <h5>Description:</h5> 
+                            <p style="color: #e1e1e1;">Retrieves the top 5 product categories that have generated the highest total profit.</p>
+                        </div>
+                        <h5 class="mt-2">SQL Code:</h5>
+                        <div class="p-2" style="background: #181a1d; border-radius: 2%; display: inline-block;">
+                            <img src="{{ url_for('static', filename='img/projects/olist_data_analysis/Query_1.png')}}" alt="Query_1" class="img-fluid">
+                        </div>
+                        <h5 class="mt-2">Results:</h5>
+                        <div class="p-2" style="background: #181a1d; border-radius: 2%; display: inline-block;">
+                            <img src="{{ url_for('static', filename='img/projects/olist_data_analysis/Result_1.png')}}" alt="Result_1" class="img-fluid">
+                        </div>
+                        <div class="mt-3 mb-2">
+                            <h5>Insight:</h5> 
+                            <p style="color: #e1e1e1;">Identifies the primary revenue drivers for the company.
+                            Categories such as Health & Beauty and Watches & Gifts emerge as leaders,
+                            accounting for a significant portion of total profit.</p>
+                        </div>
+                        <div class="mb-2">
+                            <h5>Business Value:</h5> 
+                            <p style="color: #e1e1e1;">Directs investment in advertising and partnerships
+                            toward the categories that yield the highest direct return on investment (ROI).</p>
+                        </div>
+                        <div>
+                            <h5>Visualization:</h5> 
+                            <p style="color: #e1e1e1;">The following graph illustrates the top 5 most profitable categories.</p>
+                            <img src="{{ url_for('static', filename='img/projects/olist_data_analysis/Graph_3.png')}}" alt="Graph_3" class="img-fluid pt-2">
+                            <p class="text-end">Graph made with CSV created from the query results.</p>
+                        </div>
+                    </li>
+                    <li class="mt-5 list-group-item">
+                        <h3 id="q4">Query 4 - How are the categories distributed in percentage?</h3>
+                        <div class="mb-2">
+                            <h5>Description:</h5>
+                            <p style="color: #e1e1e1;">Calculates the percentage contribution of each product category to the total income.</p>
+                        </div>
+                        <h5 class="mt-2">SQL Code:</h5>
+                        <div class="p-2" style="background: #181a1d; border-radius: 2%; display: inline-block;">
+                            <img src="{{ url_for('static', filename='img/projects/olist_data_analysis/Query_4.png')}}" alt="Query_4" class="img-fluid">
+                        </div>
+                        <h5 class="mt-2">Results:</h5>
+                        <div class="p-2" style="background: #181a1d; border-radius: 2%; display: inline-block;">
+                            <img src="{{ url_for('static', filename='img/projects/olist_data_analysis/Result_4.png')}}" alt="Result_4" class="img-fluid">
+                        </div>
+                        <div class="mt-3 mb-2">
+                            <h5>Insight:</h5>
+                            <p style="color: #e1e1e1;">This Pareto-style analysis reveals that the top categories 
+                            represent a disproportionate percentage of total income, often following the 
+                            80/20 rule where a small group of products generates most of the revenue.</p>
+                        </div>
+                        <div class="mb-2">
+                            <h5>Business Value:</h5> 
+                            <p style="color: #e1e1e1;">Critical for merchandising decisions and inventory management, 
+                            as it highlights which categories to prioritize, it is also helpful for understanding 
+                            the company's dependency on specific market niches.</p>
+                        </div>
+                        <div>
+                            <h5>Visualization:</h5> 
+                            <p style="color: #e1e1e1;">The following graph illustrates the percentage of total income contributed by each product category.</p>
+                            <img src="{{ url_for('static', filename='img/projects/olist_data_analysis/Graph_4.png')}}" alt="Graph_4" class="img-fluid pt-2">
+                            <p class="text-end">Graph made with CSV created from the query results.</p>
+                        </div>
+                    </li>
+                    <li class="mt-5 list-group-item">
+                        <h3 id="q5">Query 5 - Where are the best places for distribution centers?</h3>
+                        <div class="mb-2">
+                            <h5>Description:</h5> 
+                            <p style="color: #e1e1e1;">Ranks cities based on the number of customers in each city.</p>
+                        </div>
+                        <h5 class="mt-2">SQL Code:</h5>
+                        <div class="p-2" style="background: #181a1d; border-radius: 2%; display: inline-block;">
+                            <img src="{{ url_for('static', filename='img/projects/olist_data_analysis/Query_2.png')}}" alt="Query_5" class="img-fluid">
+                        </div>
+                        <h5 class="mt-2">Results:</h5>
+                        <div class="p-2" style="background: #181a1d; border-radius: 2%; display: inline-block;">
+                            <img src="{{ url_for('static', filename='img/projects/olist_data_analysis/Result_2.png')}}" alt="Result_5" class="img-fluid">
+                        </div>
+                        <div class="mt-3 mb-2">
+                            <h5>Insight:</h5> 
+                            <p style="color: #e1e1e1;">Customer volume is heavily concentrated in 
+                            major hubs like Rio de Janeiro, São Paulo, and Belo Horizonte. 
+                            As such, these cities are ideal locations for distribution centers.</p>
+                        </div>
+                        <div class="mb-2">
+                            <h5>Business Value:</h5> 
+                            <p style="color: #e1e1e1;">Guides logistics strategies, 
+                            such as establishing distribution centers (hubs) 
+                            near these clusters to reduce delivery times and 
+                            shipping costs (freight).</p>
+                        </div>
+                        <div>
+                            <h5>Visualization:</h5> 
+                            <p style="color: #e1e1e1;">The following map shows the 15 cities with the highest customer counts.</p>
+                            <img src="{{ url_for('static', filename='img/projects/olist_data_analysis/Graph_5.png')}}" alt="Graph_5" class="img-fluid">
+                            <p class="text-end">Graph made with CSV created from the query results.</p>
+                        </div>
+                    </li>
+
+                    <li class="mt-5 list-group-item">
+                        <h3 id="q6">Query 6 - How does customer distribution vary across regions?</h3>
+                        <div class="mb-2">
+                            <h5>Description:</h5> 
+                            <p style="color: #e1e1e1;">Ranks Brazilian states based on the number of customers in each state.</p>
+                        </div>
+                        <h5 class="mt-2">SQL Code:</h5>
+                        <div class="p-2" style="background: #181a1d; border-radius: 2%; display: inline-block;">
+                            <img src="{{ url_for('static', filename='img/projects/olist_data_analysis/Query_3.png')}}" alt="Query_6" class="img-fluid">
+                        </div>
+                        <h5 class="mt-2">Results:</h5>
+                        <div class="p-2" style="background: #181a1d; border-radius: 2%; display: inline-block;">
+                            <img src="{{ url_for('static', filename='img/projects/olist_data_analysis/Result_3.png')}}" alt="Result_6" class="img-fluid">
+                        </div>
+                        <div class="mt-3 mb-2">
+                            <h5>Insight:</h5> 
+                            <p style="color: #e1e1e1;">The state of São Paulo (SP) leads by a significant margin, 
+                            followed by RJ and MG, solidifying the Southeast region as the primary consumer market.</p>
+                        </div>
+                        <div class="mb-2">
+                            <h5>Business Value:</h5> 
+                            <p style="color: #e1e1e1;">Allows for personalized regional promotions 
+                            and provides insights into brand penetration in states with lower customer
+                            representation, such as MT and GO, where there is growth potential.
+                        </div>
+                        <div>
+                            <h5>Visualization:</h5> 
+                            <p style="color: #e1e1e1;">The following map illustrates the customer distribution across Brazilian states.</p>
+                            <img src="{{ url_for('static', filename='img/projects/olist_data_analysis/Graph_6.png')}}" alt="Graph_6" class="img-fluid pt-2">
+                            <p class="text-end">Graph made with CSV created from the query results.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+{% block scripts %}
+{% endblock %}

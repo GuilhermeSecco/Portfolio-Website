@@ -277,46 +277,6 @@ i.menu-mobile {
         z-index: 1000;
     }
     
-    .project-preview {
-        position: relative;
-        transition: 0.3s ease;
-        overflow: hidden;
-        border-radius: 10px;
-    }
-
-    .project-preview img {
-        width: 100%;
-        transition: 0.4s ease;
-    }
-
-    .project-preview:hover {
-        transform: scale(1.05);
-         z-index: 1000;
-    }
-
-    .static-img, .hover-gif {
-        width: 100%;
-        border-radius: 10px;
-        transition: 0.3s;
-    }
-
-    .static-img {
-        display: flex;
-    }
-
-    .static-img, .hover-gif {
-    width: 100%;
-    border-radius: 10px;
-    transition: opacity 0.3s ease;
-    }
-
-    .hover-gif {
-    position: absolute;
-    top: 0;
-    left: 0;
-    opacity: 0;
-    }
-    
     .titulo-badges {
     flex: wrap;
     align-items: baseline;
@@ -365,6 +325,12 @@ i.menu-mobile {
 
 .btn-outline-danger:hover {
   box-shadow: 0 0 12px rgba(255, 0, 0, 0.6);
+  color:white !important;
+  transition: 0.4s;
+}
+
+.btn-outline-success:hover {
+  box-shadow: 0 0 12px rgba(0, 255, 0, 0.6);
   color:white !important;
   transition: 0.4s;
 }

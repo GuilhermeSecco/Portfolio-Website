@@ -84,7 +84,7 @@ def credit_simulator():
         nomes_legiveis=NOMES_LEGIVEIS
     )
 
-#Rota do PostgreSQL
-@bp_simulador.route("/projects/postgresql")
-def postgresql_page():
-    return render_template("projects/postgresql.html")
+#Rota da página Olist
+@bp_simulador.route("/projects/olist-data-analysis")
+def olist_data_analysis_page():
+    return render_template("projects/olist_data_analysis.html")
