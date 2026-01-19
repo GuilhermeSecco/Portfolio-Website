@@ -1,38 +1,37 @@
-# 🌐 Portfólio de Projetos — Guilherme Fernandes Secco
+# 🌐 Interactive Portfolio — Guilherme Fernandes Secco
 
-Portfólio interativo desenvolvido com **Flask**, **Bootstrap** e integração com **GitHub API**, apresentando meus principais projetos nas áreas de **Data Science**, **Machine Learning** e **Automação**.
+High-performance interactive portfolio developed with **Flask**, **Bootstrap 5**, and dynamic **GitHub API** integration. This project centralizes my core deliveries in **Data Science**, **Machine Learning**, and **Software Engineering**.
 
 <img width="1850" height="1002" alt="image" src="https://github.com/user-attachments/assets/c2524524-a395-41b7-966f-de992f545ccf" />
 
 ---
 
-## 🚀 Sobre o Projeto
+## 🚀 Technical Highlights
 
-Este site foi desenvolvido para reunir, organizar e **apresentar de forma dinâmica** meus projetos de tecnologia.  
-Cada projeto possui uma página dedicada, com:
-- 🧠 Descrição técnica detalhada  
-- 🖼️ Imagem ilustrativa  
-- 🧾 Tecnologias utilizadas  
-- 💬 Explicação do raciocínio de modelagem ou implementação  
-- 🔗 Links diretos para o GitHub e, quando disponível, **demonstrações interativas**
+This website was developed to gather, organize, and dynamically present my **data science projects**.  
+Each project has a dedicated card featuring:
+- 💻 Project Name;
+- 🧩 Technologies Badges;
+- 💬 Project Description;
+- 🔗 Direct links to GitHub and, when available, project pages.
 
-O portfólio é totalmente **responsivo e dinâmico**, alimentado automaticamente via **API do GitHub** — sem necessidade de atualizar manualmente cada projeto.
+The portfolio is fully **responsive and dynamic**, automatically powered via the **GitHub API** — no need to manually update each project.
 
 ---
 
-## ⚙️ Principais Funcionalidades
+## ⚙️ Main Features
 
-- 🔄 **Integração automática com o GitHub**  
-  Exibe todos os repositórios que contenham o tópico `portfolio-project`.
+- 🔄 **Automatic GitHub Integration**  
+  Displays all repositories containing the topic `portfolio-project`.
 
-- 🧩 **Exibição de tecnologias e linguagens usadas**  
-  Cada projeto exibe badges coloridos com base em suas *tags* (por exemplo: `python`, `machine-learning`, `flask`, etc).
+- 🧩 **Display of Technologies and Languages Used**  
+  Each project displays colored badges based on its tags (e.g., `python`, `machine-learning`, `flask`, etc).
 
-- 💻 **Páginas individuais para projetos selecionados**  
-  Projetos especiais possuem uma rota dedicada dentro do site, com visual customizado.
+- 💻 **Individual Pages for Selected Projects**  
+  Special projects have a dedicated route within the site, with a customized layout.
 
-- 🌈 **Temas dinâmicos e animações suaves**  
-  Interface moderna construída com **Bootstrap 5** e **Animate.css**.
+- 🌈 **Dynamic Themes and Smooth Animations**  
+  Modern interface built with **Bootstrap 5** and **Animate.css**.
 
 - 📱 **Design responsivo e leve**  
   Totalmente adaptado para dispositivos móveis e desktop.
