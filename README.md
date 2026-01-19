@@ -2,7 +2,8 @@
 
 High-performance interactive portfolio developed with **Flask**, **Bootstrap 5**, and dynamic **GitHub API** integration. This project centralizes my core deliveries in **Data Science**, **Machine Learning**, and **Software Engineering**.
 
-<img width="1850" height="1002" alt="image" src="https://github.com/user-attachments/assets/c2524524-a395-41b7-966f-de992f545ccf" />
+<img width="1870" height="992" alt="image" src="https://github.com/user-attachments/assets/2dc1a0dc-eb79-4987-9749-8c8ff646f96f" />
+
 
 ---
 
