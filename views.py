@@ -28,9 +28,60 @@ taxas_por_grade = load(os.path.join("ml_models", "taxas_por_grade.pkl"))
 @bp_simulador.route("/projects/credit-simulator", methods=["GET", "POST"])
 def credit_simulator():
     if request.method == "GET":
-        return render_template("projects/credit_simulator.html", importancias=importancias,
-                               nomes_legiveis=NOMES_LEGIVEIS)
+        # 1. Definimos os dados iniciais (Renda Mensal de 3000 -> Anual 39000)
+        default_data = {
+            "person_age": 26.0,
+            "credit_score": 1000.0,
+            "person_income": 39000.0, 
+            "loan_amnt": 20000.0,
+            "loan_intent": "EDUCATION",
+            "person_home_ownership": "OWN",
+            "cb_person_default_on_file": "N"
+        }
 
+        # 2. Precisamos replicar a lógica de Grade e Ratio que você tem no POST
+        score = default_data["credit_score"]
+        if score >= 900: default_data["loan_grade"] = "A"
+        elif score >= 800: default_data["loan_grade"] = "B"
+        elif score >= 700: default_data["loan_grade"] = "C"
+        elif score >= 600: default_data["loan_grade"] = "D"
+        elif score >= 500: default_data["loan_grade"] = "E"
+        elif score >= 400: default_data["loan_grade"] = "F"
+        else: default_data["loan_grade"] = "G"
+
+        default_data["loan_int_rate"] = taxas_por_grade.get(default_data["loan_grade"], 12.0)
+        default_data["loan_to_income_ratio"] = default_data["loan_amnt"] / default_data["person_income"]
+
+        # 3. Processamento via ML (Certifique-se que 'preproc', 'modelo' e 'cols' estão acessíveis)
+        try:
+            X_ready = preprocessar_dados(default_data, preproc, cols)
+            resultado_inicial = prever_risco_credito(modelo, X_ready)
+            
+            # Formatação para o HTML
+            resultado_inicial.update({
+                "renda_anual": default_data["person_income"],
+                "score": int(score),
+                "grade": default_data["loan_grade"],
+                "taxa_aplicada": default_data["loan_int_rate"]
+            })
+
+            explicacao_inicial = explicar_previsao(X_ready, importancias)
+        except Exception as e:
+            # Caso dê erro no modelo, carrega a página limpa para não travar o site
+            print(f"Erro na predição inicial: {e}")
+            return render_template("projects/credit_simulator.html", 
+                                   importancias=importancias, 
+                                   nomes_legiveis=NOMES_LEGIVEIS)
+
+        return render_template(
+            "projects/credit_simulator.html",
+            resultado=resultado_inicial,
+            dados=default_data,
+            explicacao=explicacao_inicial,
+            importancias=importancias,
+            nomes_legiveis=NOMES_LEGIVEIS
+        )
+    
     form_data = request.form.to_dict()
 
     # Conversão de renda mensal -> anual
@@ -76,7 +127,7 @@ def credit_simulator():
     explicacao = explicar_previsao(X_ready, importancias)
 
     return render_template(
-        "projetos/credit_simulator.html",
+        "projects/credit_simulator.html",
         resultado=resultado,
         dados=form_data,
         importancias=importancias,
