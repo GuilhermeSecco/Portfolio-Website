@@ -1,127 +1,132 @@
-# 🌐 Portfólio de Projetos — Guilherme Fernandes Secco
+# 🌐 Interactive Portfolio — Guilherme Fernandes Secco
 
-Portfólio interativo desenvolvido com **Flask**, **Bootstrap** e integração com **GitHub API**, apresentando meus principais projetos nas áreas de **Data Science**, **Machine Learning** e **Automação**.
+High-performance interactive portfolio developed with **Flask**, **Bootstrap 5**, and dynamic **GitHub API** integration. This project centralizes my core deliveries in **Data Science**, **Machine Learning**, and **Software Engineering**.
 
-<img width="1850" height="1002" alt="image" src="https://github.com/user-attachments/assets/c2524524-a395-41b7-966f-de992f545ccf" />
+<img width="1870" height="992" alt="image" src="https://github.com/user-attachments/assets/2dc1a0dc-eb79-4987-9749-8c8ff646f96f" />
 
----
-
-## 🚀 Sobre o Projeto
-
-Este site foi desenvolvido para reunir, organizar e **apresentar de forma dinâmica** meus projetos de tecnologia.  
-Cada projeto possui uma página dedicada, com:
-- 🧠 Descrição técnica detalhada  
-- 🖼️ Imagem ilustrativa  
-- 🧾 Tecnologias utilizadas  
-- 💬 Explicação do raciocínio de modelagem ou implementação  
-- 🔗 Links diretos para o GitHub e, quando disponível, **demonstrações interativas**
-
-O portfólio é totalmente **responsivo e dinâmico**, alimentado automaticamente via **API do GitHub** — sem necessidade de atualizar manualmente cada projeto.
 
 ---
 
-## ⚙️ Principais Funcionalidades
+## 🚀 Technical Highlights
 
-- 🔄 **Integração automática com o GitHub**  
-  Exibe todos os repositórios que contenham o tópico `portfolio-project`.
+This website was developed to gather, organize, and dynamically present my **data science projects**.  
+Each project has a dedicated card featuring:
+- 💻 Project Name;
+- 🧩 Technologies Badges;
+- 💬 Project Description;
+- 🔗 Direct links to GitHub and, when available, project pages.
 
-- 🧩 **Exibição de tecnologias e linguagens usadas**  
-  Cada projeto exibe badges coloridos com base em suas *tags* (por exemplo: `python`, `machine-learning`, `flask`, etc).
-
-- 💻 **Páginas individuais para projetos selecionados**  
-  Projetos especiais possuem uma rota dedicada dentro do site, com visual customizado.
-
-- 🌈 **Temas dinâmicos e animações suaves**  
-  Interface moderna construída com **Bootstrap 5** e **Animate.css**.
-
-- 📱 **Design responsivo e leve**  
-  Totalmente adaptado para dispositivos móveis e desktop.
+The portfolio is fully **responsive and dynamic**, automatically powered via the **GitHub API** — no need to manually update each project.
 
 ---
 
-## 🧠 Estrutura do Projeto
+## ⚙️ Main Features
+
+- 🔄 **Automatic GitHub Integration**  
+  Displays all repositories containing the topic `portfolio-project`.
+
+- 🧩 **Display of Technologies and Languages Used**  
+  Each project displays colored badges based on its tags (e.g., `python`, `machine-learning`, `flask`, etc).
+
+- 💻 **Individual Pages for Selected Projects**  
+  Special projects have a dedicated route within the site, with a customized layout.
+
+- 🌈 **Dynamic Themes and Smooth Animations**  
+  Modern interface built with **Bootstrap 5** and **Animate.css**.
+
+- 📱 **Responsive and Lightweight Design**  
+  Fully adapted for mobile and desktop devices.
+
+---
+
+## 🧠 Project Structure
 
     project_root/
-    ├── app.py # Arquivo principal Flask
-    ├── views.py # Blueprints e rotas do site
+    ├── app.py # Main Flask file
+    ├── views.py # Site blueprints and routes
     ├── static/
-    │ ├── bootstrap/ # Framework CSS local
-    │ ├── css/ # Estilos de cada projeto
-    │ ├── img/ # Ícones e imagens
-    │ └── script.js # Scripts globais
+    │ ├── bootstrap/ # Local CSS framework
+    │ ├── css/ # Styles for each project
+    │ ├── img/ # Icons and images
+    │ └── script.js # Global scripts
     ├── templates/
-    │ ├── base.html # Template principal
-    │ ├── index.html # Página inicial
-    │ ├── projetos.html # Página com listagem de repositórios
-    │ └── projetos/
-    │ └── simulador-credito.html # Exemplo de projeto com página dedicada
-    └── ml_models/ # Modelos e scripts de Machine Learning
+    │ ├── base.html # Base template
+    │ ├── index.html # Home page
+    │ └── projects/
+    │ └── simulador-credito.html # Example of project with dedicated page
+    └── ml_models/ # Machine Learning models and scripts
 
 
 ---
 
-## 💻 Tecnologias Utilizadas
+## 💻 Technologies Used
 
-| Categoria | Tecnologias |
+| Category | Technologies |
 |------------|-------------|
 | **Backend** | Flask (Python) |
 | **Frontend** | HTML5, CSS3, Bootstrap 5, JavaScript |
-| **Integração** | GitHub REST API |
-| **Animações e Estilo** | Animate.css, Bootstrap Icons |
-| **Machine Learning (em projetos específicos)** | XGBoost, scikit-learn, pandas, NumPy |
+| **Integration** | GitHub REST API |
+| **Animations and Style** | Animate.css, Bootstrap Icons |
+| **Machine Learning (specific projects)** | XGBoost, scikit-learn, pandas, NumPy |
 
 ---
 
-## 🧩 Projetos em Destaque
+## 🧩 Featured Projects
 
-### 💳 [Simulador de Crédito Inteligente](https://github.com/GuilhermeSecco/Simulador-Credito)
-> Um simulador de aprovação de crédito que usa **XGBoost** para prever risco de inadimplência e definir taxa de juros personalizada.
+### 💳 [Intelligent Credit Simulator](https://github.com/GuilhermeSecco/credit-simulator)
+> A credit approval simulator that uses XGBoost to predict default risk and define personalized interest rates.
 
-📊 **Tópicos:** `python`, `machine-learning`, `flask`, `bootstrap`, `xgboost`
+📊 **Topics:** `python`, `machine-learning`, `flask`, `bootstrap`, `xgboost`
 
 ---
 
-### 🧠 Outros Projetos
-Além do simulador, o portfólio integra automaticamente todos os projetos do meu GitHub que possuem o tópico:
+### 🧠 Other Projects
+In addition to the simulator, the portfolio automatically integrates all projects from my GitHub that have the topic:
 
     portfolio-project
 
-Para projetos com demonstrações ativas (por exemplo, Streamlit, Flask ou sites publicados), basta adicionar também:
+For projects with active pages (Study cases), simply add:
+
+    portfolio-page
+
+This automatically adds an "Study Case" button to the project card. 🚀
+
+For projects with active demonstrations (e.g., Streamlit, Flask, or published sites), simply add:
 
     portfolio-demo
+    
+This automatically adds an "Access Demo" button to the project card. 🚀
 
-Isso adiciona automaticamente um botão “Acessar Demonstração” ao card do projeto. 🚀
+## 🔧 Local Setup
 
-## 🔧 Configuração Local
+To run the portfolio locally:
 
-Para executar o portfólio localmente:
-
-    1️⃣ Clonar o repositório
-    git clone https://github.com/GuilhermeSecco/portfolio.git
+    1️⃣ Clone the repository
+    git clone [https://github.com/GuilhermeSecco/portfolio.git](https://github.com/GuilhermeSecco/portfolio.git)
     cd portfolio
-    
-    2️⃣ Criar ambiente virtual
+
+    2️⃣ Create virtual environment
     python -m venv venv
-    source venv/bin/activate  # (ou venv\Scripts\activate no Windows)
-    
-    3️⃣ Instalar dependências
+    source venv/bin/activate  # (or venv\Scripts\activate on Windows)
+
+    3️⃣ Install dependencies
     pip install -r requirements.txt
-    
-    4️⃣ Executar o servidor Flask
+
+    4️⃣ Run the Flask server
     python app.py
-    
-    Acesse:
+
+    Access:
     👉 http://localhost:5000
 
-## 🌈 Estrutura Visual
+## 🌈 Visual Structure
 
-    🔹 Sidebar fixa com navegação por seções (Início, Sobre, Habilidades, Projetos, Contato)
+    🔹 Fixed sidebar with section navigation (Home, About, Skills, Projects)
 
-    🔹 Cards de projetos automáticos, alimentados por tópicos do GitHub
+    🔹 Automatic project cards, powered by GitHub topics
 
-    🔹 Seção de contato com links para LinkedIn e GitHub
+    🔹 Contact buttons with links to LinkedIn, GitHub and Email
 
-    🔹 Tema escuro predominante, com realces em cores de destaque
+    🔹 Predominant dark theme with highlight colors
 
 ## 💡 Próximas Melhorias
 
